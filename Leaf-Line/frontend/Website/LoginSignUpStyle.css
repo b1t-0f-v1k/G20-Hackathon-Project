@@ -3,7 +3,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(90deg, lightblue, violet);
+    background: linear-gradient(90deg, rgb(131, 244, 125), rgb(95, 138, 248));
 }
 
 .OuterDiv{
@@ -29,7 +29,6 @@ body{
     height:100%;
     display: flex;
     align-items: center;
-    color: rgb(68, 68, 68);
     text-align: center;
     z-index: 1;
     background: rgb(215, 219, 222);
@@ -45,7 +44,6 @@ body{
     height:100%;
     display: flex;
     align-items: center;
-    color: rgb(68, 68, 68);
     text-align: center;
     z-index: 1;
     background: rgb(215, 219, 222);
@@ -102,7 +100,7 @@ button{
     background-color: rgb(60, 90, 120, 0.5);
 }
 
-button{
+button:hover{
     background-color: rgb(60, 90, 120);
 }
 
@@ -119,7 +117,7 @@ button{
     left: -250%;
     width: 300%;
     height: 100%;
-    background: rgb(52, 72, 169);
+    background: rgb(0, 174, 107);
     border-radius: 150px;
     z-index: 2;
     transition: 1.89s ease-in-out;
