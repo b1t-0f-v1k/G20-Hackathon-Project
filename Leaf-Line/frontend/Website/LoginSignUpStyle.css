@@ -1,0 +1,180 @@
+body{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(90deg, lightblue, violet);
+}
+
+.OuterDiv{
+    position: relative;
+    width: 850px;
+    height: 550px;
+    background: rgb(215, 219, 222);
+    border-radius: 30px;
+    box-shadow: 0 0 30px rgb(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.OuterDiv h1{
+    font-size: 36px;
+    margin: -10 0;
+    
+}
+
+.LoginDiv{ /*!DO NOT CHANGE*/
+    position: absolute;
+    width: 50%;/*Sets the widht of the login form to 50% of the outer div !DO NOT CHANGE*/
+    right: 0;
+    height:100%;
+    display: flex;
+    align-items: center;
+    color: rgb(68, 68, 68);
+    text-align: center;
+    z-index: 1;
+    background: rgb(215, 219, 222);
+    transition: 0.6s ease-in-out 1.2s, visibility 0s 1s;
+     
+
+}
+
+.SignUpDiv{
+     position: absolute;
+    width: 50%;/*Sets the widht of the login form to 50% of the outer div !DO NOT CHANGE*/
+    right: 0;
+    height:100%;
+    display: flex;
+    align-items: center;
+    color: rgb(68, 68, 68);
+    text-align: center;
+    z-index: 1;
+    background: rgb(215, 219, 222);
+    transition: 0.6s ease-in-out 1.2s, visibility 0s 1s;
+}
+
+.OuterDiv.active .LoginDiv{
+    right:50%;
+}
+
+.OuterDiv .LoginDiv.RegisterPrompt{
+    visibility: hidden;
+}
+
+.OuterDiv.active .LoginDiv.RegisterPrompt{
+    visibility: visible;
+}
+
+
+form{
+    width:100%;
+
+}
+
+.UserInput{/*Styling for the divs containing the inputs*/
+    position: relative;
+    margin: 30px 0;
+}
+
+.UserInput input{
+    width: 85%;
+    padding: 13px;
+    background: rgb(255, 250, 244);
+    border-radius: 8px;
+    border:none;
+    outline: none;
+    font-size: 16px;
+    color: rgb(68, 68, 68);
+    font-weight: 500;
+}
+
+
+.UserInput input::placeholder{
+    color: rgb(175, 175, 175);
+    font-weight: 400;
+}
+
+button{
+    padding: 20px;
+    width: 60%;
+    border:none;
+    border-radius: 20px;
+    color: white;
+    background-color: rgb(60, 90, 120, 0.5);
+}
+
+button{
+    background-color: rgb(60, 90, 120);
+}
+
+.Mover{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.Mover::before{
+    content:'';
+    position: absolute;
+    left: -250%;
+    width: 300%;
+    height: 100%;
+    background: rgb(52, 72, 169);
+    border-radius: 150px;
+    z-index: 2;
+    transition: 1.89s ease-in-out;
+}
+
+
+.OuterDiv.active .Mover::before{
+    left: 50%;
+}
+
+
+.MoverPanel{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    transition: 0.6s ease-in-out;
+    color:rgb(215, 219, 222);
+}
+
+.MoverPanel.Mover-Left{
+    left:0;
+}
+
+.OuterDiv.active .MoverPanel.Mover-Left{
+    left: -50%;
+    transition-delay: 1.2s;
+}
+
+.MoverPanel.Mover-Right{
+    right:-50%;
+}
+
+.OuterDiv.active .MoverPanel.Mover-Right{
+    right: 0;
+    transition-delay: 1.2s;
+}
+
+
+.Mover-Left button{
+    border: 2px solid rgb(215, 219, 222);
+    background: transparent;
+    border-radius: 10px;
+    color:rgb(215, 219, 222);
+
+}
+
+.Mover-Right button{
+    border: 2px solid rgb(215, 219, 222);
+    background: transparent;
+    border-radius: 10px;
+    color:rgb(215, 219, 222);
+}
+
