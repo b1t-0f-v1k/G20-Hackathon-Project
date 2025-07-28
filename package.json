@@ -19,6 +19,7 @@
   "homepage": "https://github.com/b1t-0f-v1k/G20-Hackathon-Project#readme",
   "dependencies": {
     "express": "^5.1.0",
+    "mongodb": "^6.18.0",
     "mongoose": "^8.16.5"
   },
   "devDependencies": {
