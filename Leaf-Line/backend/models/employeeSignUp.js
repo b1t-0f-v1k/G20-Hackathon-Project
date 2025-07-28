@@ -18,7 +18,7 @@ const employeeSignUpSchema = new mongoose.Schema({
         required: true,
     },
 
-    business: {
+    businessName: {
         type: String,
         required: true,
     },
