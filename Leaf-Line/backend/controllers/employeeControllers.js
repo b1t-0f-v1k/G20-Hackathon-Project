@@ -1,62 +1,41 @@
-// Importing tools 
-const express = require('express');
-// Importing router
-const router = express.Router();
+const Employee = require('../models/employeeModel');
 
-// fetching the relevent file using file path
-const User = require('../models/employeeModel');
-
-// Asynchronous function for requesting and responding to user inputs
 const loginEmployee = async (req, res) => {
-
-    // try-catch for error handling
+    console.log(req.body);
     try {
-        
-        const {email, username, password, businessID} = req.body;
+        const { email, password } = req.body;
 
-        const user = await User.create({
-            email, 
-            username, 
-            password,
-            businessID,
-        });
+        // 1. Check if user exists
+        const user = await Employee.findOne({ email });
+        if (!user) {
+        return res.status(404).json({ error: "User not found" });
+        }
 
-        res.status(201).json({ message: "User"})
+        // 2. Check if password matches (plain text for now, bcrypt recommended later)
+        if (user.password !== password) {
+        return res.status(401).json({ error: "Invalid password" });
+        }
+
+        // 3. Success
+        res.status(200).json({ message: "Login successful", user });
     } catch (error) {
-
-        console.error("Error signing in: ", error.message);
-        res.status(500).json({ error: "Failed to log in user!"});
-
+        console.error("Error logging in:", error.message);
+        res.status(500).json({ error: "Failed to log in user!" });
     }
 };
 
-// fetching the relevent file using file path
-const User = require('../models/employeeModel');
-
-// Asynchronous function for requesting and responding to user inputs
+// Register employee
 const registerEmployee = async (req, res) => {
-
-    // try-catch for error handling
     try {
-        
-        const {email, username, password, businessName, businessID} = req.body;
+        const { email, username, password, businessName, businessID } = req.body;
 
-        const user = await User.create({
-            email, 
-            username, 
-            password, 
-            businessName, 
-            businessID,
-        });
-
-        res.status(201).json({ message: "User"})
+        const user = await Employee.create({ email, username, password, businessName, businessID });
+        res.status(201).json({ message: "User registered successfully", user });
     } catch (error) {
-
-        console.error("Error registering employee: ", error.message);
-        res.status(500).json({ error: "Failed to register user!"});
-
+        console.error("Error registering employee:", error.message);
+        res.status(500).json({ error: "Failed to register user!" });
     }
 };
 
-module.exports = {registerEmployee};
-module.exports = {loginEmployee};
+// Export both functions properly
+module.exports = { loginEmployee, registerEmployee };
