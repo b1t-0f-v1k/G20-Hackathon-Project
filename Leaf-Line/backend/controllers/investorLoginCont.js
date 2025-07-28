@@ -4,10 +4,10 @@ const express = require('express');
 const router = express.Router();
 
 // fetching the relevent file using file path
-const User = require('../models/investorSignUp');
+const User = require('../models/investorLogin');
 
 // Asynchronous function for requesting and responding to user inputs
-const registerInvestor = async (req, res) => {
+const LoginInvestor = async (req, res) => {
 
     // try-catch for error handling
     try {
@@ -23,10 +23,10 @@ const registerInvestor = async (req, res) => {
         res.status(201).json({ message: "User"})
     } catch (error) {
 
-        console.error("Error registering investor: ", error.message);
-        res.status(500).json({ error: "Failed to register user!"});
+        console.error("Error login in investor: ", error.message);
+        res.status(500).json({ error: "Failed to log in user!"});
 
     }
 };
 
-module.exports = {registerInvestor};
+module.exports = {LoginInvestor};
