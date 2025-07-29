@@ -90,7 +90,6 @@ nav:hover .BurgurMenuIcon{
 
 .AccountMenu{
     background: rgb(158, 173, 126, 0.5);
-    margin-top: 32px;
     border-radius: 20px;
     width: 100px; /* adjust width of the AccountMenu */
     position: absolute;
