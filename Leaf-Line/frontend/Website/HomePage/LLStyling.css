@@ -43,6 +43,7 @@ nav.active{
     background: rgba(255, 255, 255, 0.5);
 }
 
+
 .NavElement a{
     height: 100%;
     display: flex;
@@ -53,8 +54,6 @@ nav.active{
     color: black;
     font-size:larger;
     padding: 20px;
-    
-    
 }
 
 .NavBtn{
