@@ -7,7 +7,7 @@ header{
     display: flex;
     margin-bottom: 10px;
     background: #4F7959;
-    padding: 30px;
+    padding: 60px;
     border-radius: 20px;
 }
 
@@ -23,17 +23,19 @@ header{
 }
 
 nav{ 
-    width: 5%;
+    display: flex;
+    width: 125px;
     margin-left: 10px;
-    /* visibility: hidden; */
+    height: 140px;
     transition: width 2s;
-    background: seagreen; 
+    background: seagreen;
     border-radius: 20px;
 }
 
 
-nav:hover{
-    width: 93%;
+nav.expanded{
+    width: 100%;
+    
 }
 
 
@@ -44,30 +46,43 @@ nav:hover{
     justify-content: center;
     list-style: none;
     visibility: hidden;
-    
 
 }
 
-nav:hover .NavList{
+
+.NavBtn{
+    background: none;
+    border:none;
+    border-radius: 20px;
+    color: white;   
+    width: 5%;
+    position: absolute;
+    height: 10.69%;
+}
+
+
+nav.expanded .NavList{
     visibility: visible;
+    margin-left: 5%;
+    transition-delay: 2s;
+    
 }
 
-nav:hover .BurgurMenuIcon{
-    visibility: hidden;
-}
+
+
+
 
 .NavElement{
-
     height: 100%;
     width: 100%;
     border-radius: 20px;
-    /* border: 2px solid;
-    border-color: red; */
     text-align: center;
+    padding:20px;
+    
 }
 
 .NavElement:hover{
-    background: rgba(255, 255, 255, 0.5);
+    background:#68423D;
 }
 
 
@@ -83,9 +98,7 @@ nav:hover .BurgurMenuIcon{
     padding: 20px;
 }
 
-.NavBtn{
-    width: 5%;
-}
+
 
 
 .AccountMenu{
@@ -95,7 +108,8 @@ nav:hover .BurgurMenuIcon{
     position: absolute;
     z-index: 3;
     display: none;
-    padding: 0; /* Ensure no unwanted padding */
+    
+   
 }
 
 .AccountMenu li{
@@ -109,7 +123,9 @@ nav:hover .BurgurMenuIcon{
     width: 21%;
     position: absolute;
     z-index: 3;
-    display: none; 
+    display: none;
+    margin-top: 10px;
+     margin-top: 20px;
     
 }
 
