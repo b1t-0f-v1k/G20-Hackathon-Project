@@ -1,14 +1,17 @@
 body{
     min-height: 100vh;
-    
+    /* background: linear-gradient(135deg, #90FFDC, #8AC4FF); */
+    background: #DAD7CD;
 }
 
 header{
     display: flex;
     margin-bottom: 10px;
-    background: #4F7959;
+    /* background:  linear-gradient(135deg, #494850, #2C2C34); */
+    background: #344E41;
     padding: 60px;
     border-radius: 20px;
+    color: #DAD7CD;
 }
 
 .HeadLogo{
@@ -28,7 +31,7 @@ nav{
     margin-left: 10px;
     height: 140px;
     transition: width 2s;
-    background: seagreen;
+    background: #3A5A40;
     border-radius: 20px;
 }
 
@@ -78,11 +81,13 @@ nav.expanded .NavList{
     border-radius: 20px;
     text-align: center;
     padding:20px;
+    margin-right: 20px;
     
 }
 
 .NavElement:hover{
-    background:#68423D;
+    background: yellow;
+  animation: mybackground 10s infinite;
 }
 
 
@@ -102,7 +107,7 @@ nav.expanded .NavList{
 
 
 .AccountMenu{
-    background: rgb(158, 173, 126, 0.5);
+    background: rgb(158, 173, 126);
     border-radius: 20px;
     width: 100px; /* adjust width of the AccountMenu */
     position: absolute;
@@ -146,3 +151,9 @@ nav.expanded .NavList{
 }
 
 
+@keyframes mybackground{
+    0%{background:linear-gradient(135deg, yellow, orange);}
+    25%{background:linear-gradient(135deg, orange, yellow );}
+    50%{background:linear-gradient(135deg,yellow, orange );}
+    100%{background:linear-gradient(135deg, orange, yellow );}
+}
