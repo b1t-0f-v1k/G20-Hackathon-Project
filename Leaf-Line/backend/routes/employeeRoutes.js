@@ -9,7 +9,7 @@ const verifyFirebaseToken = require('../firebase');
 router.post('/login', loginEmployee);
 router.post('/registration', registerEmployee);
 
-//Firebase token verification for employee dashboard
+// Firebase token verification for employee dashboard
 router.get('#Path Still Needs To Go Here - Probably Employee Dashboard', verifyFirebaseToken, (req, res) => {
   res.json({ message: `Welcome, ${req.user.email}`, user:req.user });
 });
