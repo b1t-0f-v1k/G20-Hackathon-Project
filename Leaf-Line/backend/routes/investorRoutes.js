@@ -9,7 +9,7 @@ router.post('/login', loginInvestor);
 router.post('/registration', registerInvestor);
 
 // Firebase token verification for investor dashboard
-router.get('/#Path Still Needs To Go Here - Probably Investor Dashboard', verifyFirebaseToken, (req, res) => {
+router.get('/protected', verifyFirebaseToken, (req, res) => {
     res.json({ message: `Welcome Investor ${req.user.email}`, user: req.user });
 });
 
