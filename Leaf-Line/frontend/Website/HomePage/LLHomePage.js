@@ -7,7 +7,7 @@ const Navbtn = document.querySelector(".NavBtn");
 
 
 Navbtn.addEventListener('click', () => {
-    NavPnl.classList.toggle('active');//Toggles the nav class between active and not active
+    NavPnl.classList.toggle('expanded');//Toggles the nav class between active and not active
 })
 
 
