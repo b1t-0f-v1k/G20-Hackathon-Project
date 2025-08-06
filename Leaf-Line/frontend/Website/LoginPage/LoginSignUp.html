@@ -7,15 +7,18 @@
     <link rel = "stylesheet" type = "text/css" href = "LoginSignUpStyle.css">
 </head>
 <body>
-    
+    <div class="top-center-banner">
+    <img src="Leaf-Line_banner_white (1).png" alt="User Icon" style="height: 500px; width: 800px;">
+    <span>Find your <span class="leafline-text">LEAF-LINE</span>, Chart Your Path.</span>
+   </div>
     <div class = "OuterDiv">
         <div class = "LoginDiv"><!--Div to Store The Entire Login Form-->
-            <form action = "", id="loginForm"><!--Login Form -->
+            <form action = ""><!--Login Form -->
                 <h1>Login</h1><!--HEading for Login form-->
                 <br>
                 <div class = "UserInput"><!--Div to hold user input box for username-->
                     <Label for="user-input">
-                        <img src="user.png" alt="Label Icon" style="height: 20px; width: 25px;">
+                        <img src="user.png" alt="Label Icon" style="height: 20px;width: 25px;">
                     </Label>
                     <input type = "text" name="user" id="user-input" placeholder = "Username" required>
                 </div>
@@ -30,20 +33,19 @@
                 <button class = "LoginBtn">Login</button>
 
             </form>
-            <script type="module" src="firebaseLogin.js"></script>
 
         </div>
 
 
          <div class = "SignUpDiv"><!--Div to Store The Entire Login Form-->
-            <form action = "", id="signupForm"><!--Sign Up Form -->
-                <h1>SignUp</h1><!--HEading for Sign Up form-->
+            <form action = ""><!--Login Form -->
+                <h1>SignUp</h1><!--HEading for Login form-->
                 <br>
                 <div class = "UserInput"><!--Div to hold user input box for username-->
                     <Label for="user-input">
                         <img src="user.png" alt="Label Icon" style="height: 20px; width: 25px;">
                     </Label>
-                    <input type = "text" name="user" id="user-input2" placeholder = "Username" required>
+                    <input type = "text" name="user" id="user-input" placeholder = "Username" required>
                 </div>
                 <div class = "UserInput"><!--Div to hold user input box for Email-->
                     <Label for="email-input">
@@ -56,24 +58,17 @@
                     <Label for="password-input">
                         <img src="padlock.png" alt="Label Icon" style="height: 20px; width: 25px;">
                     </Label>
-                    <input type = "password" name="password" id="password-input2" placeholder = "Password" required>
+                    <input type = "password" name="password" id="password-input" placeholder = "Password" required>
                 </div>
 
 
                 <div class = "UserInput"><!--Div to hold user input box for Password-->
-                    <Label for="company-input">
+                    <Label for="SMEID-input">
                         <img src="generic.png" alt="Label Icon" style="height: 20px; width: 25px;">
                     </Label>
-                    <input type = "text" name="company" id="company-input" placeholder = "Company" required>
+                    <input type = "text" name="SME-ID" id="SMEID-input" placeholder = "SME-ID" required>
                 </div>
 
-                <div class = "UserInput"><!--Div to hold user input box for Password-->
-                    <Label for="company-input">
-                        <img src="documentation.png" alt="Label Icon" style="height: 20px; width: 25px;">
-                    </Label>
-                    <input type = "text" name="project" id="project-input" placeholder = "Project" required>
-                </div>
-                
                 <button class = "SignUpBtn">SignUp</button>
 
             </form>
