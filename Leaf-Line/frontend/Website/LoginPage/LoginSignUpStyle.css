@@ -55,7 +55,7 @@ body{
 }
 
 .SignUpDiv{
-     position: absolute;
+    position: absolute;
     width: 50%;/*Sets the widht of the login form to 50% of the outer div !DO NOT CHANGE*/
     right: 0;
     height:100%;

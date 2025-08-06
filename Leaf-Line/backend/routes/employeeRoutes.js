@@ -6,8 +6,10 @@ const { loginEmployee, registerEmployee } = require('../controllers/employeeCont
 // Import Firebase token from firebase.js
 const verifyFirebaseToken = require('../firebase');
 
-router.post('/login', loginEmployee);
-router.post('/registration', registerEmployee);
+// routes/employeeRoutes.js
+router.post('/register', verifyFirebaseToken, registerEmployee);  // Protected (registration)
+router.get('/login', verifyFirebaseToken, loginEmployee);        // Protected (login via token)
+
 
 // Firebase token verification for employee dashboard
 router.get('/protected', verifyFirebaseToken, (req, res) => {
