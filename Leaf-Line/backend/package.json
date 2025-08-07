@@ -1,0 +1,30 @@
+{
+  "name": "g20-hackathon-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "backend/server.js",
+  "scripts": {
+    "devStart": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/b1t-0f-v1k/G20-Hackathon-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/b1t-0f-v1k/G20-Hackathon-Project/issues"
+  },
+  "homepage": "https://github.com/b1t-0f-v1k/G20-Hackathon-Project#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "firebase-admin": "^13.4.0",
+    "mongodb": "^6.18.0",
+    "mongoose": "^8.16.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
