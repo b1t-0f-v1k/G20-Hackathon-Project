@@ -17,7 +17,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   // Collect login form values
-  const email = document.getElementById("user-input").value;    // Adjusted to match your HTML ID
+  const email = document.getElementById("email-input").value;
   const password = document.getElementById("password-input").value;
 
   try {
