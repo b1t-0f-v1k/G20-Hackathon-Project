@@ -1,19 +1,23 @@
 require('dotenv').config();
-const mongoose = require('mongoose');
 const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors());
+// Middleware to parse JSON request body
+app.use(express.json());
 
 // Import Routes
 const employeeRoutes = require('./routes/employeeRoutes');
 const investorRoutes = require('./routes/investorRoutes');
 
-// Middleware to parse JSON request body
-app.use(express.json());
-
 // Use routes
 app.use('/api/employee', employeeRoutes);
 app.use('/api/investor', investorRoutes);
+
+console.log("MONGO_URI from .env:", process.env.MONGO_URI);
 
 // Connect to MongoDB first, then start the server
 mongoose.connect(process.env.MONGO_URI)
