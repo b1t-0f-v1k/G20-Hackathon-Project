@@ -1,8 +1,7 @@
-// controllers/smeEmissionController.js
-const SMEProjectEmission = require("../models/smeEmissionModel");
-const EmissionFactor = require("../models/emissionFactorsModel");
+import SMEProjectEmission from "../models/smeEmissionModel.js";
+import EmissionFactor from "../models/emissionFactorsModel.js";
 
-exports.createSMEEmission = async (req, res) => {
+export const createSMEEmission = async (req, res) => {
   try {
     const { smeName, projectName, sources } = req.body;
 

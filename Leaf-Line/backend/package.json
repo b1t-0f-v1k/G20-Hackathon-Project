@@ -17,6 +17,7 @@
     "url": "https://github.com/b1t-0f-v1k/G20-Hackathon-Project/issues"
   },
   "homepage": "https://github.com/b1t-0f-v1k/G20-Hackathon-Project#readme",
+  "type": "module",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",

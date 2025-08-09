@@ -1,9 +1,24 @@
-// seedEmissionFactors.js
+// utilities/seedEmissionFactors.js
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 import EmissionFactor from "../models/emissionFactorsModel.js";
 
-dotenv.config();
+// Resolve __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Force load .env from backend root no matter where script is run
+dotenv.config({ path: path.join(__dirname, "../.env") });
+
+// Debug: Show loaded Mongo URI
+console.log("Loaded MONGO_URI from .env:", process.env.MONGO_URI);
+
+if (!process.env.MONGO_URI) {
+    console.error("❌ MONGO_URI is missing! Please check your .env file in backend folder.");
+    process.exit(1);
+}
 
 const emissionFactorsData = [
     // Electricity
@@ -26,8 +41,8 @@ const emissionFactorsData = [
 const seedEmissionFactors = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
+            useNewUrlParser: true,
+            useUnifiedTopology: true
         });
 
         console.log("✅ MongoDB connected...");

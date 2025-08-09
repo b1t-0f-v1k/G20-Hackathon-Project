@@ -1,15 +1,12 @@
-const Investor = require('../models/investorModel');
+import Investor from '../models/investorModel.js';
 
-// Login investor
-const loginInvestor = async (req, res) => {
+export const loginInvestor = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Check if user exists
         const user = await Investor.findOne({ email });
         if (!user) return res.status(404).json({ error: "Investor not found" });
 
-        // Check password (plain for now; bcrypt recommended)
         if (user.password !== password) {
             return res.status(401).json({ error: "Invalid password" });
         }
@@ -21,8 +18,7 @@ const loginInvestor = async (req, res) => {
     }
 };
 
-// Register investor
-const registerInvestor = async (req, res) => {
+export const registerInvestor = async (req, res) => {
     try {
         const { email, username, password } = req.body;
 
@@ -33,5 +29,3 @@ const registerInvestor = async (req, res) => {
         res.status(500).json({ error: "Failed to register investor!" });
     }
 };
-
-module.exports = { loginInvestor, registerInvestor };

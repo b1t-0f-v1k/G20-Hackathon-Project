@@ -1,8 +1,7 @@
-// controllers/lifestyleEmissionController.js
-const LifestyleEmission = require("../models/lifestyleEmissionModel");
-const EmissionFactor = require("../models/emissionFactorsModel");
+import LifestyleEmission from "../models/lifestyleEmissionModel.js";
+import EmissionFactor from "../models/emissionFactorsModel.js";
 
-exports.createLifestyleEmission = async (req, res) => {
+export const createLifestyleEmission = async (req, res) => {
   try {
     const { userId, categories } = req.body;
 
@@ -37,6 +36,8 @@ exports.createLifestyleEmission = async (req, res) => {
       categories: calculatedCategories,
       totalEmissions
     });
+
+    console.log("New emission object being sent:", newEmission);
 
     res.status(201).json({
       message: "Lifestyle emissions calculated successfully",
