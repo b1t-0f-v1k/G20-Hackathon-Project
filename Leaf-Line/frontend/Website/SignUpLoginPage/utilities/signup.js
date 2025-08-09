@@ -21,7 +21,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
 
   // Collect form values
   const username = document.getElementById("user-input2").value;
-  const email = document.getElementById("email-input").value;
+  const email = document.getElementById("signup-email-input").value;
   const password = document.getElementById("password-input2").value;
   const businessName = document.getElementById("SME_NAME-input").value;
   const businessID = document.getElementById("SME_ID-input").value;
