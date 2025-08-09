@@ -1,10 +1,14 @@
 // controllers/smeEmissionController.js
-const SMEProjectEmission = require("../models/SMEProjectEmission");
-const EmissionFactor = require("../models/EmissionFactor");
+const SMEProjectEmission = require("../models/smeEmissionModel");
+const EmissionFactor = require("../models/emissionFactorsModel");
 
 exports.createSMEEmission = async (req, res) => {
   try {
     const { smeName, projectName, sources } = req.body;
+
+    if (!sources || sources.length === 0) {
+      return res.status(400).json({ error: "No emission sources provided" });
+    }
 
     let totalEmissions = 0;
     let calculatedSources = [];
@@ -28,15 +32,17 @@ exports.createSMEEmission = async (req, res) => {
       });
     }
 
-    const newEmission = new SMEProjectEmission({
+    const newEmission = await SMEProjectEmission.create({
       smeName,
       projectName,
       sources: calculatedSources,
       totalEmissions
     });
 
-    await newEmission.save();
-    res.status(201).json(newEmission);
+    res.status(201).json({
+      message: "SME emissions calculated successfully",
+      data: newEmission
+    });
 
   } catch (error) {
     res.status(500).json({ error: error.message });

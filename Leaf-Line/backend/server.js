@@ -5,8 +5,8 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors());
 // Middleware to parse JSON request body
+app.use(cors());
 app.use(express.json());
 
 // Import Routes

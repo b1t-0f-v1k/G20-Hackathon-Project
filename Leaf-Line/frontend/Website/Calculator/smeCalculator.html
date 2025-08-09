@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SME Carbon Calculator</title>
+        <link rel="stylesheet" href="calculator.css">
+    </head>
+    <body>
+        <form id="sme-form">
+            <h2>SME Carbon Calculator</h2>
+            <input type="text" id="smeName" placeholder="SME Name" required>
+            <input type="text" id="projectName" placeholder="Project Name" required>
+
+            <h3>Emission Sources</h3>
+            <div id="sme-sources"></div>
+            <button type="button" id="add-sme-source">+ Add Source</button>
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        <div id="sme-results" class="results"></div>
+
+        <script src="smeCalculator.js"></script>
+    </body>
+</html>

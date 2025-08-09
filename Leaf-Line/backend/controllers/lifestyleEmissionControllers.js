@@ -1,10 +1,14 @@
 // controllers/lifestyleEmissionController.js
-const LifestyleEmission = require("../models/LifestyleEmission");
-const EmissionFactor = require("../models/EmissionFactor");
+const LifestyleEmission = require("../models/lifestyleEmissionModel");
+const EmissionFactor = require("../models/emissionFactorsModel");
 
 exports.createLifestyleEmission = async (req, res) => {
   try {
     const { userId, categories } = req.body;
+
+    if (!categories || categories.length === 0) {
+      return res.status(400).json({ error: "No lifestyle categories provided" });
+    }
 
     let totalEmissions = 0;
     let calculatedCategories = [];
@@ -28,14 +32,16 @@ exports.createLifestyleEmission = async (req, res) => {
       });
     }
 
-    const newEmission = new LifestyleEmission({
+    const newEmission = await LifestyleEmission.create({
       userId,
       categories: calculatedCategories,
       totalEmissions
     });
 
-    await newEmission.save();
-    res.status(201).json(newEmission);
+    res.status(201).json({
+      message: "Lifestyle emissions calculated successfully",
+      data: newEmission
+    });
 
   } catch (error) {
     res.status(500).json({ error: error.message });
