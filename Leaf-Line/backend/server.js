@@ -12,10 +12,14 @@ app.use(express.json());
 // Import Routes
 const employeeRoutes = require('./routes/employeeRoutes');
 const investorRoutes = require('./routes/investorRoutes');
+const lifestyleRoutes = require("./routes/lifestyleEmissionsRoutes");
+const smeRoutes = require("./routes/smeEmissionsRoutes");
 
 // Use routes
 app.use('/api/employee', employeeRoutes);
 app.use('/api/investor', investorRoutes);
+app.use('/api/lifestyle-Emissions', lifestyleRoutes);
+app.use('/api/sme-Emissions', smeRoutes);
 
 console.log("MONGO_URI from .env:", process.env.MONGO_URI);
 
