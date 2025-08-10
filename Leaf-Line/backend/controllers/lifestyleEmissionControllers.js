@@ -1,12 +1,16 @@
 import LifestyleEmission from "../models/lifestyleEmissionModel.js";
 import EmissionFactor from "../models/emissionFactorsModel.js";
+import LocalBenchmark from "../models/LocalBenchmark.js";
 
 export const createLifestyleEmission = async (req, res) => {
   try {
-    const { userId, categories } = req.body;
+    const { userId, province, municipality, categories } = req.body;
 
     if (!categories || categories.length === 0) {
       return res.status(400).json({ error: "No lifestyle categories provided" });
+    }
+    if (!province || !municipality) {
+      return res.status(400).json({ error: "Province and municipality are required" });
     }
 
     let totalEmissions = 0;
@@ -14,11 +18,9 @@ export const createLifestyleEmission = async (req, res) => {
 
     for (let cat of categories) {
       const factorDoc = await EmissionFactor.findOne({ category: cat.category });
-
       if (!factorDoc) {
         return res.status(400).json({ error: `Emission factor not found for category: ${cat.category}` });
       }
-
       const emissions = cat.activityData * factorDoc.emissionFactor;
       totalEmissions += emissions;
 
@@ -31,13 +33,24 @@ export const createLifestyleEmission = async (req, res) => {
       });
     }
 
+    // 🔍 Find benchmark for location
+    const benchmarkDoc = await LocalBenchmark.findOne({ province, municipality });
+    if (!benchmarkDoc) {
+      return res.status(404).json({ error: "No benchmark found for this location" });
+    }
+
+    const benchmarkValue = benchmarkDoc.threshold;
+    const flag = totalEmissions > benchmarkValue ? "red" : "green";
+
     const newEmission = await LifestyleEmission.create({
       userId,
+      province,
+      municipality,
       categories: calculatedCategories,
-      totalEmissions
+      totalEmissions,
+      flag,
+      benchmarkUsed: benchmarkValue
     });
-
-    console.log("New emission object being sent:", newEmission);
 
     res.status(201).json({
       message: "Lifestyle emissions calculated successfully",
@@ -48,3 +61,4 @@ export const createLifestyleEmission = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+

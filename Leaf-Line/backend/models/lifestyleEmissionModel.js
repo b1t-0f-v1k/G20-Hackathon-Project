@@ -10,9 +10,18 @@ const lifestyleCategorySchema = new mongoose.Schema({
 
 const LifestyleEmissionSchema = new mongoose.Schema({
   userId: { type: String, required: true },
+  province: { type: String, required: true },
+  municipality: { type: String, required: true },
   date: { type: Date, default: Date.now },
   categories: [lifestyleCategorySchema],
-  totalEmissions: { type: Number, required: true }
+  totalEmissions: { type: Number, required: true },
+
+  // Benchmark check results
+  flag: { type: String, enum: ["green", "yellow", "red", "no-data"], default: "no-data" },
+  benchmarkUsed: {
+    type: mongoose.Schema.Types.Mixed,
+    default: null
+  }
 });
 
 const LifestyleEmission = mongoose.model("LifestyleEmission", LifestyleEmissionSchema);
