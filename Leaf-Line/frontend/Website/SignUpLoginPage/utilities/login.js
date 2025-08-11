@@ -28,14 +28,20 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   try {
     // 1️⃣ Sign in with Firebase Auth
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    console.log("Firebase auth successful!")
 
     // 2️⃣ Get Firebase token
     const token = await userCredential.user.getIdToken();
+    console.log("Got Firebase token!")
 
     // 3️⃣ Send token to backend
     const response = await fetch(loginEndpoint, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({}), // or any payload your backend expects
     });
 
     const data = await response.json();

@@ -1,21 +1,20 @@
 import Investor from '../models/investorModel.js';
 
 export const loginInvestor = async (req, res) => {
-    try {
-        const { email, password } = req.body;
+  try {
+    // req.user is set by verifyFirebaseToken middleware
+    const email = req.user.email;
 
-        const user = await Investor.findOne({ email });
-        if (!user) return res.status(404).json({ error: "Investor not found" });
+    const user = await Investor.findOne({ email });
+    if (!user) return res.status(404).json({ error: "Investor not found" });
 
-        if (user.password !== password) {
-            return res.status(401).json({ error: "Invalid password" });
-        }
+    // No password check needed — Firebase already authenticated
 
-        res.status(200).json({ message: "Login successful", user });
-    } catch (error) {
-        console.error("Error logging in investor:", error.message);
-        res.status(500).json({ error: "Failed to log in investor!" });
-    }
+    res.status(200).json({ message: "Login successful", user });
+  } catch (error) {
+    console.error("Error logging in investor:", error.message);
+    res.status(500).json({ error: "Failed to log in investor!" });
+  }
 };
 
 export const registerInvestor = async (req, res) => {
