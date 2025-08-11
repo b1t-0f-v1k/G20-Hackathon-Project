@@ -9,14 +9,19 @@ const firebaseConfig = {
   projectId: "hackathon-auth-4fa00",
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+// ✅ Detect page type (investor or employee)
+const isInvestorPage = window.location.pathname.toLowerCase().includes("investor");
+const apiBase = "http://localhost:5000/api";
+const loginEndpoint = isInvestorPage ? `${apiBase}/investor/login` : `${apiBase}/employee/login`;
 
 // ✅ Handle login form submit
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // Collect login form values
   const email = document.getElementById("email-input").value;
   const password = document.getElementById("password-input").value;
 
@@ -27,19 +32,18 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     // 2️⃣ Get Firebase token
     const token = await userCredential.user.getIdToken();
 
-    // 3️⃣ Send token to backend (protected login endpoint)
-    const response = await fetch("http://localhost:5000/api/employee/login", {
+    // 3️⃣ Send token to backend
+    const response = await fetch(loginEndpoint, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    // 4️⃣ Handle backend response
     const data = await response.json();
     console.log("Login response:", data);
 
-    // Redirect to dashboard or next page
+    // 4️⃣ Redirect to correct dashboard
     if (response.ok) {
-      window.location.href = "dashboard.html";
+      window.location.href = isInvestorPage ? "InvestorDashboard.html" : "EmployeeDashboard.html";
     } else {
       alert("Login failed: " + data.error);
     }
