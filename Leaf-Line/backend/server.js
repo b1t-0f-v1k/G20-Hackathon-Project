@@ -10,6 +10,8 @@ import employeeRoutes from "./routes/employeeRoutes.js";
 import investorRoutes from "./routes/investorRoutes.js";
 import lifestyleEmissionRoutes from "./routes/lifestyleEmissionRoutes.js";
 import smeEmissionRoutes from "./routes/smeEmissionRoutes.js";
+import localBenchmarkRoutes from "./routes/localBenchmarkRoutes.js";
+//import adminBenchmarkRoutes from "./routes/adminBenchmarkRoutes.js";
 
 
 const app = express();
@@ -24,6 +26,10 @@ app.use('/api/investor', investorRoutes);
 app.use('/api', lifestyleEmissionRoutes);
 app.use('/api', smeEmissionRoutes);
 app.use("/api", emissionFactorRoutes);
+app.use("/api/local-benchmarks", localBenchmarkRoutes);
+//app.use("/admin", express.static("Website/admin"));
+//app.use("/api/admin/benchmarks", adminBenchmarkRoutes);
+
 
 console.log("MONGO_URI from .env:", process.env.MONGO_URI);
 

@@ -4,7 +4,14 @@ import mongoose from "mongoose";
 const EmissionFactorSchema = new mongoose.Schema({
   category: { type: String, required: true, unique: true }, // e.g., "Electricity"
   unit: { type: String, required: true }, // e.g., "kWh"
-  emissionFactor: { type: Number, required: true } // kg CO₂e per unit
+  emissionFactor: { type: Number, required: true }, // kg CO₂e per unit
+  province: String,
+  municipality: String,
+  threshold: Number,
+  unit: String,
+  sourceUrl: String,
+  lastUpdated: Date,
+  notes: String
 });
 
 const EmissionFactor = mongoose.model("EmissionFactor", EmissionFactorSchema);

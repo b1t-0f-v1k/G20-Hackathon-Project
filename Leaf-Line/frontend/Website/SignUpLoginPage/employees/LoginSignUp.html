@@ -1,108 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login/SignUp</title>
-    <link rel = "stylesheet" type = "text/css" href = "LoginSignUpStyle.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Employee Login/SignUp</title>
+    <link rel="stylesheet" href="LoginSignUpStyle.css" />
 </head>
 <body>
-    <!--<div class="top-center-banner">
-        <img src="Adobe Express - file.png" alt="User Icon" style="height: 500px; width: 800px;">
-        <span>Find your <span class="leafline-text">LEAF-LINE</span>, Chart Your Path.</span>
-    </div>-->
-    <div class = "OuterDiv">
-        <div class = "LoginDiv"><!--Div to Store The Entire Login Form-->
-            <form action = "" id="loginForm"><!--Login Form -->
-                <h1>Login</h1><!--HEading for Login form-->
-                <br>
-                <div class = "UserInput"><!--Div to hold user input box for username-->
-                    <Label for="user-input">
-                        <img src="../assets/user.png" alt="Label Icon" style="height: 20px;width: 25px;">
-                    </Label>
-                    <input type="email" name="email" id="email-input" placeholder="Email" required>
+    <div class="OuterDiv">
+        <div class="LoginDiv">
+            <form id="loginForm" action="">
+                <h1>Login</h1>
+                <br />
+                <div class="UserInput">
+                    <label for="email-input">
+                        <img src="../assets/user.png" alt="User Icon" style="height: 20px; width: 25px;" />
+                    </label>
+                    <input type="email" id="email-input" name="email" placeholder="Email" required />
                 </div>
-
-                <div class = "UserInput"><!--Div to hold user input box for Password-->
-                    <Label for="password-input">
-                        <img src="../assets/padlock.png" alt="Label Icon" style="height: 20px; width: 25px;">
-                    </Label>
-                    <input type = "password" name="password" id="password-input" placeholder = "Password" required>
+                <div class="UserInput">
+                    <label for="password-input">
+                        <img src="../assets/padlock.png" alt="Password Icon" style="height: 20px; width: 25px;" />
+                    </label>
+                    <input
+                        type="password"
+                        id="password-input"
+                        name="password"
+                        placeholder="Password"
+                        required
+                    />
                 </div>
-        
-                <button class = "LoginBtn" type="submit">Login</button>
-
+                <button class="LoginBtn" type="submit">Login</button>
             </form>
         </div>
 
-
-        <div class = "SignUpDiv"><!--Div to Store The Entire Login Form-->
-            <form action = "" id="signupForm"><!--sign up Form -->
-                <h1>SignUp</h1><!--HEading for sign up form-->
-                <br>
-                <div class = "UserInput"><!--Div to hold user input box for username-->
-                    <Label for="user-input">
-                        <img src="../assets/user.png" alt="Label Icon" style="height: 20px; width: 25px;">
-                    </Label>
-                    <input type = "text" name="user" id="user-input2" placeholder = "Username" required>
-                </div>
-                <div class = "UserInput"><!--Div to hold user input box for Email-->
-                    <Label for="email-input">
-                        <img src="../assets/email.png" alt="Label Icon" style="height: 20px; width: 25px;">
-                    </Label>
-                    <input type="email" name="email" id="signup-email-input" placeholder="Email" required>
-
+        <div class="SignUpDiv">
+            <form id="signupForm" action="">
+                <h1>SignUp</h1>
+                <br />
+                <div class="UserInput">
+                    <label for="signup-name-input">
+                        <img src="../assets/user.png" alt="User Icon" style="height: 20px; width: 25px;" />
+                    </label>
+                    <input
+                        type="text"
+                        id="signup-name-input"
+                        name="user"
+                        placeholder="Username"
+                        required
+                    />
                 </div>
 
-                <div class = "UserInput"><!--Div to hold user input box for Password-->
-                    <Label for="password-input">
-                        <img src="../assets/padlock.png" alt="Label Icon" style="height: 20px; width: 25px;">
-                    </Label>
-                    <input type = "password" name="password" id="password-input2" placeholder = "Password" required>
+                <div class="UserInput">
+                    <label for="signup-email-input">
+                        <img src="../assets/email.png" alt="Email Icon" style="height: 20px; width: 25px;" />
+                    </label>
+                    <input
+                        type="email"
+                        id="signup-email-input"
+                        name="email"
+                        placeholder="Email"
+                        required
+                    />
                 </div>
 
-                <div class = "UserInput"><!--Div to hold user input box for Password-->
-                    <Label for="SME_NAME-input">
-                        <img src= "../assets/generic.png" alt="Label Icon" style="height: 20px; width: 25px;">
-                    </Label>
-                    <input type = "text" name="SME-NAME" id="SME_NAME-input" placeholder = "Business Name" required>
+                <div class="UserInput">
+                    <label for="signup-password-input">
+                        <img src="../assets/padlock.png" alt="Password Icon" style="height: 20px; width: 25px;" />
+                    </label>
+                    <input
+                        type="password"
+                        id="signup-password-input"
+                        name="password"
+                        placeholder="Password"
+                        required
+                    />
                 </div>
 
-                <div class = "UserInput"><!--Div to hold user input box for Password-->
-                    <Label for="SMEID-input">
-                        <img src="../assets/generic.png" alt="Label Icon" style="height: 20px; width: 25px;">
-                    </Label>
-                    <input type = "text" name="SME-ID" id="SME_ID-input" placeholder = "SME-ID" required>
+                <div class="UserInput">
+                    <label for="SME_NAME-input">
+                        <img src="../assets/generic.png" alt="Business Icon" style="height: 20px; width: 25px;" />
+                    </label>
+                    <input
+                        type="text"
+                        id="SME_NAME-input"
+                        name="businessName"
+                        placeholder="Business Name"
+                        required
+                    />
                 </div>
 
-                <button class = "SignUpBtn">SignUp</button>
+                <div class="UserInput">
+                    <label for="SME_ID-input">
+                        <img src="../assets/generic.png" alt="Business Icon" style="height: 20px; width: 25px;" />
+                    </label>
+                    <input
+                        type="text"
+                        id="SME_ID-input"
+                        name="businessID"
+                        placeholder="SME ID"
+                        required
+                    />
+                </div>
 
+                <button class="SignUpBtn" type="submit">SignUp</button>
             </form>
-
         </div>
 
-        <div class = "Mover">
-            <div class = "MoverPanel Mover-Left"><!--Sign Up Form Promp div-->
+        <div class="Mover">
+            <div class="MoverPanel Mover-Left">
                 <h1>How u Boyyy</h1>
-                 <p>Vye in the pozie to catch one chow</p>
-                <button class = "LoginPromptBtn">Log In</button>
+                <p>Vye in the pozie to catch one chow</p>
+                <button class="LoginPromptBtn">Log In</button>
             </div>
-
-            <div class = "MoverPanel Mover-Right"><!--Login Form Prompt div-->
+            <div class="MoverPanel Mover-Right">
                 <h1>Wk Ekse</h1>
                 <p>Check here larnie, dala one account if you dont have one</p>
-                
-              <button class = "SignUpPromptBtn">Sign Up</button> 
-                
+                <button class="SignUpPromptBtn">Sign Up</button>
             </div>
         </div>
-
-
-
     </div>
 
-    <script type="module" src = "../utilities/login.js"></script>
-    <script type="module" src = "LoginSignUp.js"></script>
-    <script type="module" src = "../utilities/signup.js"></script>
+    <script type="module" src="../utilities/login.js"></script>
+    <script type="module" src="LoginSignUp.js"></script>
+    <script type="module" src="../utilities/signup.js"></script>
 </body>
 </html>

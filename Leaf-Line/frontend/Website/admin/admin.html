@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Benchmarks</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div id="login-screen">
+        <h2>Admin Login</h2>
+        <input type="password" id="admin-password" placeholder="Enter password">
+        <button id="login-btn">Login</button>
+        <p id="login-error" style="color:red;"></p>
+    </div>
+
+    <div id="admin-panel" style="display:none;">
+        <h1>Local Benchmarks</h1>
+        <p id="access-level"></p>
+
+        <table id="benchmark-table">
+            <thead>
+                <tr>
+                    <th>Province</th>
+                    <th>Municipality</th>
+                    <th>Threshold</th>
+                    <th>Unit</th>
+                    <th>Source URL</th>
+                    <th>Last Updated</th>
+                    <th>Notes</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div id="add-section" style="display:none;">
+            <h2>Add New Benchmark</h2>
+            <input type="text" id="new-province" placeholder="Province">
+            <input type="text" id="new-municipality" placeholder="Municipality">
+            <input type="number" id="new-threshold" placeholder="Threshold">
+            <input type="text" id="new-unit" placeholder="Unit">
+            <input type="text" id="new-sourceUrl" placeholder="Source URL">
+            <input type="date" id="new-lastUpdated">
+            <input type="text" id="new-notes" placeholder="Notes">
+            <button id="add-btn">Add Benchmark</button>
+        </div>
+    </div>
+
+    <script src="admin.js" defer></script>
+</body>
+</html>

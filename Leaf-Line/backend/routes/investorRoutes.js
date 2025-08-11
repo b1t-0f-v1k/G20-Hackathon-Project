@@ -5,7 +5,7 @@ import verifyFirebaseToken from "../firebase.js";
 const router = express.Router();
 
 router.post("/login", loginInvestor);
-router.post("/registration", registerInvestor);
+router.post("/register", registerInvestor);
 
 // Firebase token verification for investor dashboard
 router.get("/protected", verifyFirebaseToken, (req, res) => {

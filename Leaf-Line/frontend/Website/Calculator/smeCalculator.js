@@ -9,10 +9,45 @@ async function loadEmissionFactors() {
   }
 }
 
+async function loadProvincesAndMunicipalities() {
+  try {
+    const res = await fetch("http://localhost:5000/api/local-benchmarks");
+    const data = await res.json();
+
+    const grouped = {};
+    data.forEach(b => {
+      if (!grouped[b.province]) grouped[b.province] = [];
+      grouped[b.province].push(b.municipality);
+    });
+
+    const provinceSelect = document.getElementById("province");
+    provinceSelect.innerHTML = `<option value="">-- Select Province --</option>`;
+    Object.keys(grouped).forEach(prov => {
+      provinceSelect.innerHTML += `<option value="${prov}">${prov}</option>`;
+    });
+
+    provinceSelect.addEventListener("change", () => {
+      const muniSelect = document.getElementById("municipality");
+      muniSelect.innerHTML = `<option value="">-- Select Municipality --</option>`;
+      const selectedProvince = provinceSelect.value;
+      if (grouped[selectedProvince]) {
+        grouped[selectedProvince].forEach(muni => {
+          muniSelect.innerHTML += `<option value="${muni}">${muni}</option>`;
+        });
+      }
+    });
+  } catch (err) {
+    console.error("Error loading benchmarks:", err);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const addSourceBtn = document.getElementById("add-sme-source");
   addSourceBtn.disabled = true;
+
   await loadEmissionFactors();
+  await loadProvincesAndMunicipalities();
+
   addSourceBtn.disabled = false;
 
   addSourceBtn.addEventListener("click", () => {
@@ -50,11 +85,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const data = await res.json();
       if (res.ok) {
+        let sourcesHtml = "";
+        if (data.data.sources && Array.isArray(data.data.sources)) {
+          sourcesHtml = "<h4>Breakdown by Source:</h4><ul>";
+          data.data.sources.forEach(src => {
+            sourcesHtml += `<li>${src.category}: ${src.emissions.toFixed(2)} kg CO₂e</li>`;
+          });
+          sourcesHtml += "</ul>";
+        }
+
         document.getElementById("sme-results").innerHTML = `
           <h3>Results for ${data.data.smeName}</h3>
+          ${sourcesHtml}
           <p><strong>Total Emissions:</strong> ${data.data.totalEmissions.toFixed(2)} kg CO₂e</p>
-          <p><strong>Flag:</strong> <span style="color:${data.data.flag}">${data.data.flag}</span></p>
+          ${data.data.flag ? `<p><strong>Flag:</strong> <span style="color:${data.data.flagColor || 'black'}">${data.data.flag}</span></p>` : ""}
         `;
+
       } else {
         document.getElementById("sme-results").innerHTML = `<p class="error">${data.error}</p>`;
       }

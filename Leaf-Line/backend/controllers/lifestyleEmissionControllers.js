@@ -34,7 +34,10 @@ export const createLifestyleEmission = async (req, res) => {
     }
 
     // 🔍 Find benchmark for location
-    const benchmarkDoc = await LocalBenchmark.findOne({ province, municipality });
+    const benchmarkDoc = await LocalBenchmark.findOne({ 
+      province: province.trim(), 
+      municipality: municipality.trim()
+    });
     if (!benchmarkDoc) {
       return res.status(404).json({ error: "No benchmark found for this location" });
     }

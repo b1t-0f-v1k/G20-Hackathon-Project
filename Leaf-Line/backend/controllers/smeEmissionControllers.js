@@ -35,8 +35,8 @@ export const createSMEEmission = async (req, res) => {
 
     // 🔍 Find benchmark for location
     const benchmarkDoc = await LocalBenchmark.findOne({ 
-      province: new RegExp(`^${province}$`, "i"),
-      municipality: new RegExp(`^${municipality}$`, "i") 
+      province: province.trim(),
+      municipality: municipality.trim()
     });
     
     if (!benchmarkDoc) {

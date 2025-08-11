@@ -1,5 +1,5 @@
-// signup.js (Debug version)
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+// signup.js
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 
 // ✅ Firebase Config
@@ -9,8 +9,8 @@ const firebaseConfig = {
   projectId: "hackathon-auth-4fa00",
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// ✅ Initialize Firebase only once
+const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 // ✅ Handle Signup Form Submission
@@ -19,67 +19,71 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
 
   console.log("🚀 Signup form submitted.");
 
-  // Collect form values
-  const username = document.getElementById("user-input2").value;
+  // Required for all signups
+  const username = document.getElementById("signup-name-input").value;
   const email = document.getElementById("signup-email-input").value;
-  const password = document.getElementById("password-input2").value;
-  const businessName = document.getElementById("SME_NAME-input").value;
-  const businessID = document.getElementById("SME_ID-input").value;
+  const password = document.getElementById("signup-password-input").value;
+
+  // ✅ Only collect SME fields if they exist on the page
+  const businessNameEl = document.getElementById("SME_NAME-input");
+  const businessIDEl = document.getElementById("SME_ID-input");
+  const businessName = businessNameEl ? businessNameEl.value : null;
+  const businessID = businessIDEl ? businessIDEl.value : null;
 
   console.log("📥 Collected Form Data:", { username, email, password, businessName, businessID });
 
-  // Validate fields before proceeding
-  if (!username || !email || !password || !businessName || !businessID) {
-    console.warn("⚠️ Missing field(s). Cannot submit signup.");
-    alert("Please fill in all fields.");
+  // 🔹 Validation: If SME fields exist, require them. Otherwise, skip.
+  if (!username || !email || !password) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+  if ((businessNameEl && !businessName) || (businessIDEl && !businessID)) {
+    alert("Please fill in all business details.");
     return;
   }
 
   try {
-    // 1️⃣ Register user in Firebase Auth
+    // 1️⃣ Register in Firebase Auth
     console.log("🔑 Creating Firebase user...");
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     console.log("✅ Firebase user created:", userCredential.user.email);
 
-    // 2️⃣ Retrieve Firebase ID token
-    console.log("🔑 Fetching Firebase token...");
+    // 2️⃣ Get Firebase token
     const token = await userCredential.user.getIdToken();
-    console.log("✅ Firebase token retrieved:", token.substring(0, 30) + "..."); // Print partial token
 
-    // 3️⃣ Send data to backend
-    console.log("📤 Sending data to backend:", {
-      email,
-      username,
-      password,
-      businessName,
-      businessID,
-    });
+    // 3️⃣ Prepare payload
+    const payload = { username, email, password };
+    if (businessName && businessID) {
+      payload.businessName = businessName;
+      payload.businessID = businessID;
+    }
 
-    const response = await fetch("http://localhost:5000/api/employee/register", {
+    // 4️⃣ Send to backend (choose correct endpoint based on presence of SME fields)
+    const endpoint = businessName && businessID
+      ? "http://localhost:5000/api/employee/register"
+      : "http://localhost:5000/api/investor/register";
+
+    console.log("📤 Sending data to backend:", endpoint, payload);
+
+    const response = await fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ email, username, password, businessName, businessID }),
+      body: JSON.stringify(payload),
     });
 
-    console.log("📡 Backend response status:", response.status);
-
-    // 4️⃣ Parse backend response
     const data = await response.json();
-    console.log("📥 Backend response data:", data);
 
     if (response.ok) {
-      console.log("🎉 Signup successful:", data);
       alert("Signup successful! Redirecting to login...");
       window.location.href = "login.html";
     } else {
-      console.error("❌ Signup failed (server error):", data);
       alert("Signup failed: " + (data.error || "Unknown error"));
     }
   } catch (err) {
-    console.error("🔥 Signup failed (frontend error):", err.message);
+    console.error("🔥 Signup failed:", err.message);
     alert("Signup failed: " + err.message);
   }
 });
