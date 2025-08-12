@@ -1,68 +1,75 @@
 body {
   font-family: Arial, sans-serif;
-  background: #f7f7f7;
-  margin: 0;
+  background-color: #f7f7f7;
+  margin: 20px;
   padding: 20px;
-}
-
-.container {
-  max-width: 800px;
-  margin: auto;
 }
 
 h1 {
   text-align: center;
-  color: #333;
 }
 
-input, button {
-  padding: 8px;
-  margin: 5px 0;
-}
-
-button {
-  cursor: pointer;
-  background: #007BFF;
-  border: none;
-  color: white;
-  border-radius: 4px;
-}
-
-button:hover {
-  background: #0056b3;
-}
-
-.projects-list {
+#projects-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   margin-top: 20px;
 }
 
 .project-card {
   background: white;
+  border-radius: 10px;
   padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border: 1px solid #ccc; /* added border */
 }
 
-.flag {
-  padding: 3px 8px;
-  border-radius: 4px;
-  color: white;
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-header h3 {
+  margin: 0;
+}
+
+.details {
+  display: none;
+  margin-top: 10px;
   font-size: 0.9em;
+  color: #333;
 }
 
-.dropdown-btn {
+/* Sources section */
+.sources {
   margin-top: 10px;
-  background: #28a745;
 }
 
-.dropdown-btn:hover {
-  background: #1e7e34;
+.source {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
 }
 
-.dropdown-content {
-  margin-top: 10px;
-  background: #f1f1f1;
-  padding: 10px;
-  border-radius: 6px;
+.source input {
+  width: 100px;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+}
+
+button.toggle-details {
+  background: #007bff;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button.toggle-details:hover {
+  background: #0056b3;
 }

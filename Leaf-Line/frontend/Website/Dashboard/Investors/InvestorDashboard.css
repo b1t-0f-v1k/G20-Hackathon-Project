@@ -42,7 +42,7 @@ body {
 .collapsible {
     background: none;
     border: none;
-    color: white;
+    color: red;
     font-size: 16px;
     padding: 10px 20px;
     width: 100%;
@@ -63,7 +63,7 @@ body {
     padding-left: 40px;
 }
 
-.content a {
+a {
     color: #bdc3c7;
     display: block;
     padding: 5px 0;

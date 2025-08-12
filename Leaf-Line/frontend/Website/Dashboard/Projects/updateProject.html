@@ -3,20 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <title>Update Project</title>
-  <link rel="stylesheet" href="../utilities/calculator.css" />
+  <link rel="stylesheet" href="../Projects/updateProject.css" />
 </head>
 <body>
   <form id="update-form">
     <h2>Update Project</h2>
-    <input type="text" id="smeName" required />
-    <input type="text" id="businessID" required />
-    <input type="text" id="projectName" required />
-    <label>Province:</label>
-    <input type="text" id="province" required />
-    <label>Municipality:</label>
-    <input type="text" id="municipality" required />
+
+    <input type="text" id="smeName" placeholder="SME Name" required />
+    <input type="text" id="businessID" placeholder="Business ID" required />
+    <input type="text" id="projectName" placeholder="Project Name" required />
+
+    <label for="province">Province:</label>
+    <select id="province" required>
+      <option value="">Select Province</option>
+    </select>
+
+    <label for="municipality">Municipality:</label>
+    <select id="municipality" required>
+      <option value="">Select Municipality</option>
+    </select>
+
+    <h3>Sources</h3>
+    <div id="sources-list">
+      <!-- Existing sources will be populated here -->
+    </div>
+
+    <div id="add-source-form">
+      
+    </div>
+    <button type="button" id="add-source-btn">Add Source</button>
+
     <button type="submit">Update</button>
   </form>
+
   <script src="updateProject.js"></script>
 </body>
 </html>

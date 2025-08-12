@@ -1,23 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SME Projects</title>
-<link rel="stylesheet" href="smeProjects.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SME Projects</title>
+  <link rel="stylesheet" href="smeProjects.css">
 </head>
 <body>
-  <div class="container">
-    <h1>My Projects</h1>
-    
-    <label for="businessIDInput">Enter Business ID:</label>
-    <input type="text" id="businessIDInput" placeholder="Enter your business ID" />
-    <button id="loadProjectsBtn">Load Projects</button>
-
-    <div id="projectsList" class="projects-list">
-      <!-- Projects will be rendered here -->
-    </div>
-  </div>
+  <h1>SME Projects</h1>
+  <input type="text" id="businessID" placeholder="Enter Business ID" />
+  <button id="loadProjects">Load Projects</button>
+  <div id="projectsList"></div>
 
   <script src="smeProjects.js"></script>
 </body>
