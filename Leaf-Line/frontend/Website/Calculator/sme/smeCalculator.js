@@ -70,6 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const projectName = document.getElementById("projectName").value;
     const province = document.getElementById("province").value;
     const municipality = document.getElementById("municipality").value;
+    const businessID = document.getElementById("businessID").value;
 
     const sources = [...document.querySelectorAll(".source-group")].map(group => ({
       category: group.querySelector(".category").value,
@@ -80,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const res = await fetch("http://localhost:5000/api/sme", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ smeName, projectName, province, municipality, sources })
+        body: JSON.stringify({ smeName, businessID, projectName, province, municipality, sources })
       });
 
       const data = await res.json();
@@ -94,11 +95,31 @@ document.addEventListener("DOMContentLoaded", async () => {
           sourcesHtml += "</ul>";
         }
 
+        // Determine color based on flag value
+        let flagHtml = "";
+        if (data?.data?.flag) {
+          let color = "black";
+
+          switch (data.data.flag.toLowerCase()) {
+            case "green":
+              color = "green";
+              break;
+            case "yellow":
+              color = "orange";
+              break;
+            case "red":
+              color = "red";
+              break;
+          }
+
+          flagHtml = `<p><strong>Flag:</strong> <span style="color:${color}">${data.data.flag}</span></p>`;
+        }
+
         document.getElementById("sme-results").innerHTML = `
           <h3>Results for ${data.data.smeName}</h3>
           ${sourcesHtml}
           <p><strong>Total Emissions:</strong> ${data.data.totalEmissions.toFixed(2)} kg CO₂e</p>
-          ${data.data.flag ? `<p><strong>Flag:</strong> <span style="color:${data.data.flagColor || 'black'}">${data.data.flag}</span></p>` : ""}
+          ${flagHtml}
         `;
 
       } else {

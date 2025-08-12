@@ -4,13 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SME Carbon Calculator</title>
-  <link rel="stylesheet" href="calculator.css" />
+  <link rel="stylesheet" href="../utilities/calculator.css" />
 </head>
 <body>
   <form id="sme-form">
     <h2>SME Carbon Calculator</h2>
 
-    <input type="text" id="smeName" placeholder="SME Name" required />
+    <input type="text" id="smeName" placeholder="Business Name" required />
+    <input type="text" id="businessID" placeholder="Enter Business ID" required />
     <input type="text" id="projectName" placeholder="Project Name" required />
 
     <label for="province">Province:</label>
@@ -31,7 +32,7 @@
 
   <div id="sme-results" class="results"></div>
 
-  <script src="provinceMunicipalityData.js"></script>
+  <script src="../utilities/provinceMunicipalityData.js"></script>
   <script src="smeCalculator.js"></script>
 </body>
 </html>

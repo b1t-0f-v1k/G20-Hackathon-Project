@@ -11,6 +11,7 @@ const emissionSourceSchema = new mongoose.Schema({
 const SMEProjectEmissionSchema = new mongoose.Schema({
   smeName: { type: String, required: true },
   projectName: { type: String, required: true },
+  businessID: { type: String, required: true },
   province: { type: String, required: true },
   municipality: { type: String, required: true },
   date: { type: Date, default: Date.now },

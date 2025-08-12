@@ -1,11 +1,12 @@
 import SMEProjectEmission from "../models/smeEmissionModel.js";
 import EmissionFactor from "../models/emissionFactorsModel.js";
-import LocalBenchmark from "../models/LocalBenchmark.js";
+import { checkAgainstBenchmark } from "../helpers/benchmarkHelper.js";
 
 export const createSMEEmission = async (req, res) => {
   try {
-    const { smeName, projectName, province, municipality, sources } = req.body;
+    const { smeName, businessID, projectName, province, municipality, sources } = req.body;
 
+    // ✅ Validation
     if (!sources || sources.length === 0) {
       return res.status(400).json({ error: "No emission sources provided" });
     }
@@ -16,6 +17,7 @@ export const createSMEEmission = async (req, res) => {
     let totalEmissions = 0;
     let calculatedSources = [];
 
+    // ✅ Calculate total emissions
     for (let src of sources) {
       const factorDoc = await EmissionFactor.findOne({ category: src.category });
       if (!factorDoc) {
@@ -33,28 +35,29 @@ export const createSMEEmission = async (req, res) => {
       });
     }
 
-    // 🔍 Find benchmark for location
-    const benchmarkDoc = await LocalBenchmark.findOne({ 
-      province: province.trim(),
-      municipality: municipality.trim()
-    });
-    
-    if (!benchmarkDoc) {
+    // ✅ Get benchmark result from helper
+    const benchmarkCheck = await checkAgainstBenchmark(
+      province.trim(),
+      municipality.trim(),
+      totalEmissions
+    );
+
+    // If no benchmark data
+    if (benchmarkCheck.flag === "no-data") {
       return res.status(404).json({ error: "No benchmark found for this location" });
     }
 
-    const benchmarkValue = benchmarkDoc.threshold;
-    const flag = totalEmissions > benchmarkValue ? "red" : "green";
-
+    // ✅ Save record
     const newEmission = await SMEProjectEmission.create({
       smeName,
+      businessID,
       projectName,
       province,
       municipality,
       sources: calculatedSources,
       totalEmissions,
-      flag,
-      benchmarkUsed: benchmarkValue
+      flag: benchmarkCheck.flag,
+      benchmarkUsed: benchmarkCheck.benchmarkUsed
     });
 
     res.status(201).json({
@@ -66,3 +69,4 @@ export const createSMEEmission = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+

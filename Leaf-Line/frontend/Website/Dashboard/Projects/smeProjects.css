@@ -1,0 +1,68 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+input, button {
+  padding: 8px;
+  margin: 5px 0;
+}
+
+button {
+  cursor: pointer;
+  background: #007BFF;
+  border: none;
+  color: white;
+  border-radius: 4px;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.projects-list {
+  margin-top: 20px;
+}
+
+.project-card {
+  background: white;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.flag {
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: white;
+  font-size: 0.9em;
+}
+
+.dropdown-btn {
+  margin-top: 10px;
+  background: #28a745;
+}
+
+.dropdown-btn:hover {
+  background: #1e7e34;
+}
+
+.dropdown-content {
+  margin-top: 10px;
+  background: #f1f1f1;
+  padding: 10px;
+  border-radius: 6px;
+}

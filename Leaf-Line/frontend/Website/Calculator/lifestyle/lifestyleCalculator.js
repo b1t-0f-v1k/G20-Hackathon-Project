@@ -42,19 +42,17 @@ async function loadProvincesAndMunicipalities() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const addCategoryBtn = document.getElementById("add-lifestyle-source");
-  const categoriesContainer = document.getElementById("lifestyle-sources");
-  const form = document.getElementById("lifestyle-form");
-  const resultsDiv = document.getElementById("lifestyle-results");
+  const addSourceBtn = document.getElementById("add-lifestyle-source");
+  const categoriesContainer = document.getElementById("lifestyle-sources");  // Add this line
 
-  addCategoryBtn.disabled = true;
+  addSourceBtn.disabled = true;
 
   await loadEmissionFactors();
   await loadProvincesAndMunicipalities();
 
-  addCategoryBtn.disabled = false;
+  addSourceBtn.disabled = false;
 
-  addCategoryBtn.addEventListener("click", () => {
+  addSourceBtn.addEventListener("click", () => {   // Use addSourceBtn, not addCategoryBtn
     const div = document.createElement("div");
     div.classList.add("source-group");
     div.innerHTML = `
@@ -68,13 +66,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     categoriesContainer.appendChild(div);
   });
 
-  form.addEventListener("submit", async (e) => {
+  document.getElementById("lifestyle-form").addEventListener("submit", async (e) => {
     e.preventDefault();
-    const userId = document.getElementById("lifestyleName").value;
+    const lifestyleName = document.getElementById("lifestyleName").value;
     const province = document.getElementById("province").value;
     const municipality = document.getElementById("municipality").value;
 
-    const categories = [...categoriesContainer.querySelectorAll(".source-group")].map(group => ({
+    const sources = [...document.querySelectorAll(".source-group")].map(group => ({
       category: group.querySelector(".category").value,
       activityData: parseFloat(group.querySelector(".activityData").value)
     }));
@@ -83,32 +81,52 @@ document.addEventListener("DOMContentLoaded", async () => {
       const res = await fetch("http://localhost:5000/api/lifestyle", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, province, municipality, categories })
+        body: JSON.stringify({ lifestyleName, province, municipality, sources })
       });
 
       const data = await res.json();
       if (res.ok) {
-        let categoriesHtml = "";
-        if (data.data.categories && Array.isArray(data.data.categories)) {
-          categoriesHtml = "<h4>Breakdown by Category:</h4><ul>";
-          data.data.categories.forEach(cat => {
-            categoriesHtml += `<li>${cat.category}: ${cat.emissions.toFixed(2)} kg CO₂e</li>`;
+        let sourcesHtml = "";
+        if (data.data.sources && Array.isArray(data.data.sources)) {
+          sourcesHtml = "<h4>Breakdown by Source:</h4><ul>";
+          data.data.sources.forEach(src => {
+            sourcesHtml += `<li>${src.category}: ${src.emissions.toFixed(2)} kg CO₂e</li>`;
           });
-          categoriesHtml += "</ul>";
+          sourcesHtml += "</ul>";
         }
 
-        resultsDiv.innerHTML = `
-          <h3>Results for ${data.data.userId}</h3>
-          ${categoriesHtml}
+        // Determine color based on flag value
+        let flagHtml = "";
+        if (data?.data?.flag) {
+          let color = "black";
+
+          switch (data.data.flag.toLowerCase()) {
+            case "green":
+              color = "green";
+              break;
+            case "yellow":
+              color = "orange";
+              break;
+            case "red":
+              color = "red";
+              break;
+          }
+
+          flagHtml = `<p><strong>Flag:</strong> <span style="color:${color}">${data.data.flag}</span></p>`;
+        }
+
+        document.getElementById("lifestyle-results").innerHTML = `
+          <h3>Results for ${data.data.lifestyleName}</h3>
+          ${sourcesHtml}
           <p><strong>Total Emissions:</strong> ${data.data.totalEmissions.toFixed(2)} kg CO₂e</p>
-          ${data.data.flag ? `<p><strong>Flag:</strong> <span style="color:${data.data.flagColor || 'black'}">${data.data.flag}</span></p>` : ""}
+          ${flagHtml}
         `;
 
       } else {
-        resultsDiv.innerHTML = `<p class="error">${data.error}</p>`;
+        document.getElementById("lifestyle-results").innerHTML = `<p class="error">${data.error}</p>`;
       }
     } catch (err) {
-      resultsDiv.innerHTML = `<p class="error">Network error: ${err.message}</p>`;
+      document.getElementById("lifestyle-results").innerHTML = `<p class="error">Network error: ${err.message}</p>`;
     }
   });
 });

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members Dashboard</title>
+    <link rel="stylesheet" href="EmployeeDashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        
+        <button class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+        <h2><i class="fas fa-user-friends"></i> Members</h2>
+        
+        <ul class="menu">
+            <li>
+                <button class="collapsible"><i class="fas fa-home"></i> Projects</button>
+                <div class="content">
+                    <a href="../Projects/smeProjects.html">Overview</a>
+                </div>
+            </li>
+        
+            <li>
+                <button class="collapsible" id="reports"><i class="fas fa-chart-line"></i> Reports</button>
+                <div class="content">
+                    <a href="#">Graphs</a>
+                    <a href="#">Annual</a>
+                </div>
+            </li>
+
+            <li>
+                <button class="collapsible"><i class="fas fa-cog"></i> Settings</button>
+                <div class="content">
+                    <a href="#">Admin Control</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <div class="head">
+            <h1>Welcome to the Members Dashboard</h1>
+        </div>
+
+    </div>
+
+    <script src="EmployeeDashboard.js"></script>
+</body>
+</html>
