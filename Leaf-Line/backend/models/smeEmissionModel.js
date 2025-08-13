@@ -19,7 +19,7 @@ const SMEProjectEmissionSchema = new mongoose.Schema({
   totalEmissions: { type: Number, required: true },
 
   // Benchmark check results
-  flag: { type: String, enum: ["Green", "Yellow", "Red", "no-data"], default: "no-data" },
+  flag: { type: String, enum: ["green", "yellow", "red", "no-data"], default: "no-data" },
   benchmarkUsed: {
     type: mongoose.Schema.Types.Mixed, // stores snapshot of benchmark used
     default: null

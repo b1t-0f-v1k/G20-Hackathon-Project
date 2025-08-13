@@ -1,5 +1,16 @@
 import SMEProjectEmission from "../models/smeEmissionModel.js";
 
+// Helper to normalize flag casing
+const normalizeFlag = (flag) => {
+  if (!flag) return null;
+  const lower = flag.toLowerCase();
+  if (lower === "red") return "Red";
+  if (lower === "green") return "Green";
+  if (lower === "yellow") return "Yellow";
+  if (lower === "no-data") return "No-data";
+  return flag;
+};
+
 // Get all projects for a specific businessID
 export const getProjectsByBusinessID = async (req, res) => {
   try {
@@ -23,6 +34,7 @@ export const getProjectById = async (req, res) => {
   }
 };
 
+// Create a new project
 export const createProject = async (req, res) => {
   try {
     const { province, municipality, activityData, emissionFactor } = req.body;
@@ -30,20 +42,18 @@ export const createProject = async (req, res) => {
     // Calculate total emissions
     const totalEmissions = activityData * emissionFactor;
 
-    let flag = "Green";
+    // Default flag
+    let flag = null;
     let benchmarkUsed = null;
 
     if (province && municipality) {
       const LocalBenchmark = (await import("../models/LocalBenchmark.js")).default;
       const benchmark = await LocalBenchmark.findOne({ province, municipality });
-
-      if (!benchmark) {
-        return res.status(200).json({ flag: "no-data", benchmarkUsed: null });
-      }
-
       benchmarkUsed = benchmark;
 
-      if (totalEmissions > benchmark.redThresholdKg) {
+      if (!benchmark) {
+        flag = "No-data";
+      } else if (totalEmissions > benchmark.redThresholdKg) {
         flag = "Red";
       } else if (totalEmissions < benchmark.greenThresholdKg) {
         flag = "Green";
@@ -55,18 +65,19 @@ export const createProject = async (req, res) => {
     const newProject = new SMEProjectEmission({
       ...req.body,
       totalEmissions,
-      flag,
       benchmarkUsed,
+      flag: normalizeFlag(flag), // ALWAYS override after spreading
     });
 
     await newProject.save();
     res.status(201).json(newProject);
+
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
 
-
+// Update a project
 export const updateProject = async (req, res) => {
   try {
     const { id } = req.params;
@@ -76,26 +87,22 @@ export const updateProject = async (req, res) => {
       return res.status(400).json({ error: "Sources must be an array" });
     }
 
-    // Calculate total emissions by summing emissions in all sources
     const totalEmissions = sources.reduce((sum, src) => {
       const emissions = Number(src.emissions);
       return sum + (isNaN(emissions) ? 0 : emissions);
     }, 0);
 
-    let flag = "Green";
+    let flag = null;
     let benchmarkUsed = null;
 
     if (province && municipality) {
       const LocalBenchmark = (await import("../models/LocalBenchmark.js")).default;
       const benchmark = await LocalBenchmark.findOne({ province, municipality });
-
-      if (!benchmark) {
-        return res.status(200).json({ flag: "no-data", benchmarkUsed: null });
-      }
-
       benchmarkUsed = benchmark;
 
-      if (totalEmissions > benchmark.redThresholdKg) {
+      if (!benchmark) {
+        flag = "No-data";
+      } else if (totalEmissions > benchmark.redThresholdKg) {
         flag = "Red";
       } else if (totalEmissions < benchmark.greenThresholdKg) {
         flag = "Green";
@@ -107,12 +114,11 @@ export const updateProject = async (req, res) => {
     const updateData = {
       ...req.body,
       totalEmissions,
-      flag,
       benchmarkUsed,
+      flag: normalizeFlag(flag), // ALWAYS override
     };
 
     const updated = await SMEProjectEmission.findByIdAndUpdate(id, updateData, { new: true });
-
     if (!updated) return res.status(404).json({ error: "Project not found" });
 
     res.json(updated);
