@@ -28,33 +28,44 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   try {
     // 1️⃣ Sign in with Firebase Auth
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    console.log("Firebase auth successful!")
+    console.log("Firebase auth successful!");
 
     // 2️⃣ Get Firebase token
     const token = await userCredential.user.getIdToken();
-    console.log("Got Firebase token!")
+    console.log("Got Firebase token!");
 
-    // 3️⃣ Send token to backend
+    // 3️⃣ Send token + email to backend
     const response = await fetch(loginEndpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({}), // or any payload your backend expects
+      body: JSON.stringify({ email }), // Send email if your backend needs it
     });
 
-    const data = await response.json();
+    // 4️⃣ Safely parse response
+    const responseText = await response.text();
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (err) {
+      console.error("Server did not return JSON:", responseText);
+      alert("Login failed: Unexpected server response (check console).");
+      return;
+    }
+
     console.log("Login response:", data);
 
-    // 4️⃣ Redirect to correct dashboard
+    // 5️⃣ Redirect to dashboard if successful
     if (response.ok) {
-      window.location.href = isInvestorPage ? "InvestorDashboard.html" : "EmployeeDashboard.html";
+      window.location.href = isInvestorPage ? "../../Dashboard/Investors/InvestorDashboard.html" : "../../Dashboard/Employee/EmployeeDashboard.html";
     } else {
-      alert("Login failed: " + data.error);
+      alert("Login failed: " + (data.error || "Unknown error"));
     }
+
   } catch (err) {
-    console.error("Login failed:", err.message);
+    console.error("Login failed:", err);
     alert("Login failed: " + err.message);
   }
 });

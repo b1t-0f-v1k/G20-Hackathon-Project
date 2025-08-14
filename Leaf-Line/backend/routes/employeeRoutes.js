@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/register", verifyFirebaseToken, registerEmployee);
 
 // Protected (login via token)
-router.get("/login", verifyFirebaseToken, loginEmployee);
+router.post("/login", verifyFirebaseToken, loginEmployee);
 
 // Firebase token verification for employee dashboard
 router.get("/protected", verifyFirebaseToken, (req, res) => {

@@ -2,30 +2,23 @@ import Employee from '../models/employeeModel.js';
 
 export const loginEmployee = async (req, res) => {
     try {
-        console.log("Decoded Firebase User in login:", req.user);
+    // req.user is set by verifyFirebaseToken middleware
+    const email = req.user.email;
 
-        const email = req.user.email;
-        const user = await Employee.findOne({ email });
+    const user = await Employee.findOne({ email });
+    if (!user) return res.status(404).json({ error: "Investor not found" });
 
-        if (!user) {
-            return res.status(404).json({ error: "User not found in database" });
-        }
+    // No password check needed — Firebase already authenticated
 
-        res.status(200).json({
-            message: "Login successful",
-            user
-        });
-    } catch (error) {
-        console.error("Error logging in:", error.message);
-        res.status(500).json({ error: "Failed to log in user!" });
-    }
+    res.status(200).json({ message: "Login successful", user });
+  } catch (error) {
+    console.error("Error logging in investor:", error.message);
+    res.status(500).json({ error: "Failed to log in investor!" });
+  }
 };
 
 export const registerEmployee = async (req, res) => {
     try {
-        console.log("🔥 Incoming Signup Data (req.body):", req.body);
-        console.log("🔥 Firebase Verified User (req.user):", req.user);
-
         const { email, username, password, businessName, businessID } = req.body;
 
         if (req.user.email !== email) {

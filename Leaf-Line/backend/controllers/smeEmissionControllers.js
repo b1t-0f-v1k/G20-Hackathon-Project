@@ -70,3 +70,18 @@ export const createSMEEmission = async (req, res) => {
   }
 };
 
+// smeEmissionControllers.js
+export const getAllSMEEmissions = async (req, res) => {
+  try {
+    const emissions = await SMEProjectEmission.find({}); // Fetch all records
+    // Optional: select fields you want for the graph
+    const data = emissions.map(e => ({
+      projectName: e.projectName,
+      totalEmissions: e.totalEmissions,
+      flag: e.flag
+    }));
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch SME emissions" });
+  }
+};
