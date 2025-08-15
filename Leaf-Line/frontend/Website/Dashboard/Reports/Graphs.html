@@ -1,19 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Graphs</title>
-    <link rel="stylesheet" href="../../Dashboard/Employee/EmployeeDashboard.css"> <!-- optional for same styling -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-</head>
-<body>
-    <div class="main">
-        <h1>Project Data Graph</h1>
-        <div id="chart"></div>
-        <a href="../../Dashboard/Employee/EmployeeDashboard.html">← Back to Dashboard</a>
-    </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Project Graphs</title>
+        <link rel="stylesheet" href="../../Dashboard/Employee/EmployeeDashboard.css">
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <link rel="stylesheet" href="./Graphs.css">
+    </head>
+    <body>
+        <div class="sidebar">
+            <div class="main">
+                <h1>Project Data Graph</h1>
+                <a href="../../Dashboard/Employee/EmployeeDashboard.html">← Back to Dashboard</a>
+            </div>
 
-    <script src = "./Graphs.js"></script>
-</body>
+            <!-- Input field for Business ID -->
+            <div id="input-section">
+                <label for="businessIdInput">Enter Business ID:</label>
+                <input type="text" id="businessIdInput" placeholder="Enter your business ID">
+                <button id="loadGraphBtn">Load Graph</button>
+            </div>
+        </div>
+
+        <div class="charts-wrapper">
+            <div id="chart"></div>
+            <div id="categoryCharts"></div>
+        </div>
+
+        <script src="./Graphs.js"></script>
+    </body>
+
 </html>

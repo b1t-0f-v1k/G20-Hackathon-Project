@@ -13,6 +13,11 @@ const firebaseConfig = {
 const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+// ✅ Detect page type (investor or employee)
+const isInvestorPage = window.location.pathname.toLowerCase().includes("investor");
+const apiBase = "http://localhost:5000/api";
+const loginEndpoint = isInvestorPage ? `${apiBase}/investor/login` : `${apiBase}/employee/login`;
+
 // ✅ Handle Signup Form Submission
 document.getElementById("signupForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -77,8 +82,8 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     const data = await response.json();
 
     if (response.ok) {
-      alert("Signup successful! Redirecting to login...");
-      window.location.href = "login.html";
+      alert("Signup successful! Redirecting to Dashboard...");
+      window.location.href = isInvestorPage ? "../../Dashboard/Investors/InvestorDashboard.html" : "../../Dashboard/Employee/EmployeeDashboard.html";
     } else {
       alert("Signup failed: " + (data.error || "Unknown error"));
     }

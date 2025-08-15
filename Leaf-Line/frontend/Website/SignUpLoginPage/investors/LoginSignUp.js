@@ -13,20 +13,17 @@ SignUpBtnP.addEventListener('click', () => {
    OuterDiv.classList.remove('active');
 })
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Login password toggle
-  const loginPasswordInput = document.getElementById('password-input');
-  const showLoginPasswordCheckbox = document.getElementById('show-login-password');
+// Toggle Password Visibility
 
-  showLoginPasswordCheckbox.addEventListener('change', () => {
-    loginPasswordInput.type = showLoginPasswordCheckbox.checked ? 'text' : 'password';
-  });
-
-  // Signup password toggle
-  const signupPasswordInput = document.getElementById('signup-password-input');
-  const showSignupPasswordCheckbox = document.getElementById('show-signup-password');
-
-  showSignupPasswordCheckbox.addEventListener('change', () => {
-    signupPasswordInput.type = showSignupPasswordCheckbox.checked ? 'text' : 'password';
-  });
+document.querySelectorAll('.eyeicon').forEach(function(icon) {
+   icon.addEventListener('click', function() {
+      let input = this.previousElementSibling;
+         if (input.type === "password") {
+            input.type = "text";
+            this.src = "../assets/eye.png";
+         } else {
+            input.type = "password";
+            this.src = "../assets/hidden.png";
+         }
+   });
 });

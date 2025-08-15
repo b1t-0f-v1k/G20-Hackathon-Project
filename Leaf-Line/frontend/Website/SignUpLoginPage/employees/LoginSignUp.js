@@ -12,3 +12,19 @@ LoginBtnP.addEventListener('click', () => {
 SignUpBtnP.addEventListener('click', () => {
    OuterDiv.classList.remove('active');
 })
+
+// Toggle Password Visibility
+
+document.querySelectorAll('.eyeicon').forEach(function(icon) {
+   icon.addEventListener('click', function() {
+      let input = this.previousElementSibling;
+         if (input.type === "password") {
+            input.type = "text";
+            this.src = "../assets/eye.png";
+         } else {
+            input.type = "password";
+            this.src = "../assets/hidden.png";
+         }
+   });
+});
+

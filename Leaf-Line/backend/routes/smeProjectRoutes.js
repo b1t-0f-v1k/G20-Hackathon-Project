@@ -15,6 +15,7 @@ router.delete("/sme-projects/:id", deleteProject);
 router.put("/sme-projects/:id", updateProject);
 router.get("/sme-project/:id", getProjectById);
 router.post("/", createProject);
+router.get("/projects/:businessID", getProjectsByBusinessID);
 
 // Add a source
 router.post('/projects/:projectId/sources', async (req, res) => {

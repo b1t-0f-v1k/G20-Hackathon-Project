@@ -17,6 +17,7 @@ const employeeSchema = new mongoose.Schema({
   },
   businessName: {
     type: String,
+    required: true
   },
   businessID: {
     type: String,

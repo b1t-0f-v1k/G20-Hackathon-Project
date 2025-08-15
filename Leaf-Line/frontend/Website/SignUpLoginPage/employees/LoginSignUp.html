@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="LoginSignUpStyle.css" />
 </head>
 <body>
+    <div class="top-center-banner">
+        <img src="../assets/Leaf-Line-green-no-bg.png" alt="User Icon" style="height: 500px; width: 800px;">
+        <span>Find your <span class="leafline-text">LEAF-LINE</span>, Chart Your Path.</span>
+    </div>
+
     <div class="OuterDiv">
         <div class="LoginDiv">
             <form id="loginForm" action="">
@@ -29,8 +34,7 @@
                         placeholder="Password"
                         required
                     />
-                    <input type="checkbox" id="show-login-password" />
-                    <label for="show-login-password" style="font-size: 12px; color: #555; cursor: pointer;">Show Password</label>
+                    <img src="../assets/hidden.png" class="eyeicon" alt="Toggle visibility" style="height: 20px; width: 20px; cursor: pointer; margin-left: -30px;">
                 </div>
                 <button class="LoginBtn" type="submit">Login</button>
             </form>
@@ -77,8 +81,7 @@
                         placeholder="Password"
                         required
                     />
-                    <input type="checkbox" id="show-signup-password" />
-                    <label for="show-signup-password" style="font-size: 12px; color: #555; cursor: pointer;">Show Password</label>
+                    <img src="../assets/hidden.png" class="eyeicon" alt="Toggle visibility" style="height: 20px; width: 20px; cursor: pointer; margin-left: -30px;">
                 </div>
 
                 <div class="UserInput">
@@ -126,7 +129,7 @@
     </div>
 
     <script type="module" src="../utilities/login.js"></script>
-    <script type="module" src="LoginSignUp.js"></script>
+    <script type="module" src="./LoginSignUp.js"></script>
     <script type="module" src="../utilities/signup.js"></script>
 </body>
 </html>
