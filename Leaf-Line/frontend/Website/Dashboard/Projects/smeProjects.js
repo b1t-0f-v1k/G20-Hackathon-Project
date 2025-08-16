@@ -1,8 +1,12 @@
+import { StatusManager } from './utils/StatusManager.js';
+
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById('loadProjects');
   const projectsList = document.getElementById('projectsList');
+  const statusFilter = document.getElementById('statusFilter');
+  const businessIDInput = document.getElementById('businessID');
 
-  // Define flag colors at the top level
+  // Define flag colors for benchmark status
   const flagColors = {
     green: '#28a745',
     yellow: '#ffc107',
@@ -11,142 +15,284 @@ document.addEventListener("DOMContentLoaded", () => {
     "no-data": '#6c757d'
   };
 
-  btn.addEventListener('click', async () => {
-    const businessID = document.getElementById('businessID').value.trim();
+  // Load projects when button is clicked
+  btn.addEventListener('click', loadProjects);
+
+  // Allow Enter key to trigger search
+  businessIDInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      loadProjects();
+    }
+  });
+
+  async function loadProjects() {
+    const businessID = businessIDInput.value.trim();
     if (!businessID) {
       alert('Please enter a Business ID');
       return;
     }
 
-    projectsList.innerHTML = '<p>Loading projects...</p>';
+    projectsList.innerHTML = '<div class="loading-spinner"></div><p>Loading projects...</p>';
 
     try {
-      const res = await fetch(`http://localhost:5000/api/sme-projects/business-id/${encodeURIComponent(businessID)}`);
-      if (!res.ok) throw new Error('Failed to fetch projects');
+      // Build API URL with filters
+      let url = `http://localhost:5000/api/sme-projects/business-id/${encodeURIComponent(businessID)}`;
+      if (statusFilter.value) {
+        url += `?status=${statusFilter.value}`;
+      }
+
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Failed to load projects: ${res.statusText}`);
 
       const projects = await res.json();
 
       if (!Array.isArray(projects) || projects.length === 0) {
-        projectsList.innerHTML = '<p>No projects found for this Business ID.</p>';
+        projectsList.innerHTML = '<p class="no-projects">No projects found for this Business ID.</p>';
         return;
       }
 
-      projectsList.innerHTML = ''; // Clear previous results
+      renderProjects(projects);
+    } catch (err) {
+      console.error('Error loading projects:', err);
+      projectsList.innerHTML = `<p class="error-message">Error: ${err.message}</p>`;
+    }
+  }
 
-      projects.forEach(proj => {
-        const card = document.createElement('div');
-        card.classList.add('project-card');
+  function renderProjects(projects) {
+    projectsList.innerHTML = '';
 
-        // Header with project name and flag, plus toggle button
-        const header = document.createElement('div');
-        header.classList.add('project-header');
+    projects.forEach(project => {
+      const card = createProjectCard(project);
+      projectsList.appendChild(card);
+    });
+  }
 
-        // Container for title and flag stacked vertically
-        const titleFlagContainer = document.createElement('div');
-        titleFlagContainer.style.display = 'flex';
-        titleFlagContainer.style.flexDirection = 'column';
-        titleFlagContainer.style.flexGrow = '1';
+  function createProjectCard(project) {
+    const card = document.createElement('div');
+    card.classList.add('project-card');
+    const statusManager = new StatusManager(project._id);
 
-        const title = document.createElement('h1');
-        title.textContent = proj.projectName || 'Untitled Project';
-        title.style.margin = '0';
-        
-        const flag = document.createElement('div');
-        flag.classList.add('project-flag');
-        
-        // Get the flag value from the project, default to "no-data"
-        const flagValue = proj.flag ? proj.flag.toLowerCase() : "no-data";
-        const flagDisplayText = flagValue === "no-data" ? "No status available" : `Status: ${flagValue.toUpperCase()}`;
-        
-        flag.textContent = flagDisplayText;
-        flag.style.fontWeight = 'bold';
-        flag.style.marginTop = '4px';
-        
-        // Apply the color based on the flag value
-        flag.style.color = flagColors[flagValue] || flagColors["no-data"];
-        
-        // Add a colored circle indicator before the text
-        flag.innerHTML = `
-          <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; 
-                      background-color: ${flagColors[flagValue] || flagColors["no-data"]}; 
-                      margin-right: 6px;"></span>
-          ${flagDisplayText}
-          ${proj.totalEmissions ? `(${proj.totalEmissions.toFixed(2)} kg CO₂e)` : ''}
-        `;
+    // Create card header
+    const header = document.createElement('div');
+    header.classList.add('project-header');
 
-        titleFlagContainer.appendChild(title);
-        titleFlagContainer.appendChild(flag);
+    // Project title and metadata
+    const metaContainer = document.createElement('div');
+    metaContainer.classList.add('project-meta-container');
 
-        const toggleBtn = document.createElement('button');
-        toggleBtn.textContent = "Show Details";
-        toggleBtn.classList.add('toggle-details');
+    const title = document.createElement('h2');
+    title.textContent = project.projectName || 'Untitled Project';
+    title.classList.add('project-title');
 
-        header.appendChild(titleFlagContainer);
-        header.appendChild(toggleBtn);
+    // Project status badge
+    const statusValue = project.status || 'active';
+    const statusBadge = createStatusBadge(statusValue);
 
-        // Details section hidden by default
-        const details = document.createElement('div');
-        details.classList.add('details');
-        details.style.display = "none";
-        details.innerHTML = `
-          <p><strong>SME Name:</strong> ${proj.smeName || "N/A"}</p>
-          <p><strong>Business ID:</strong> ${proj.businessID || "N/A"}</p>
-          <p><strong>Project Cost:</strong> $${proj.projectCost?.toFixed(2) || "N/A"}</p>
-          <p><strong>Province:</strong> ${proj.province || "N/A"}</p>
-          <p><strong>Municipality:</strong> ${proj.municipality || "N/A"}</p>
-          <p><strong>Status:</strong> <span style="color:${flagColors[flagValue]}">${flagValue.toUpperCase()}</span></p>
-          <p><strong>Total Emissions:</strong> ${proj.totalEmissions?.toFixed(2) ?? "N/A"} kg CO₂e</p>
-          <p><strong>Cost Efficiency:</strong> ${proj.projectCost ? (proj.totalEmissions / proj.projectCost).toFixed(4) : "N/A"} kg CO₂e/$</p>
-          <p><strong>Created At:</strong> ${proj.createdAt ? new Date(proj.createdAt).toLocaleDateString() : "N/A"}</p>
-        `;
+    // Benchmark flag badge
+    const flagValue = project.flag ? project.flag.toLowerCase() : "no-data";
+    const flagBadge = createFlagBadge(flagValue, project.totalEmissions);
 
-        toggleBtn.addEventListener('click', () => {
-          const isVisible = details.style.display === "block";
-          details.style.display = isVisible ? "none" : "block";
-          toggleBtn.textContent = isVisible ? "Show Details" : "Hide Details";
-        });
+    metaContainer.appendChild(title);
+    metaContainer.appendChild(statusBadge);
+    metaContainer.appendChild(flagBadge);
 
-        // Action buttons: Update and Delete
-        const actions = document.createElement('div');
-        actions.classList.add('project-actions');
+    // Toggle details button
+    const toggleBtn = document.createElement('button');
+    toggleBtn.textContent = "Show Details";
+    toggleBtn.classList.add('toggle-details');
 
-        const updateBtn = document.createElement('button');
-        updateBtn.textContent = "Update";
-        updateBtn.classList.add('update-btn');
-        updateBtn.addEventListener('click', () => {
-          window.location.href = `updateProject.html?id=${proj._id}`;
-        });
-        updateBtn.style.margin = "20px";
+    header.appendChild(metaContainer);
+    header.appendChild(toggleBtn);
 
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = "Delete";
-        deleteBtn.classList.add('delete-btn');
-        deleteBtn.addEventListener('click', async () => {
-          if (confirm(`Are you sure you want to delete project "${proj.projectName}"?`)) {
-            try {
-              const delRes = await fetch(`http://localhost:5000/api/sme-projects/${proj._id}`, { method: 'DELETE' });
-              if (!delRes.ok) throw new Error('Failed to delete project');
-              card.remove();
-            } catch (err) {
-              alert(`Error: ${err.message}`);
-            }
-          }
-        });
+    // Project details section (hidden by default)
+    const details = createProjectDetails(project, statusValue, flagValue);
 
-        actions.appendChild(updateBtn);
-        actions.appendChild(deleteBtn);
+    // Toggle details visibility
+    toggleBtn.addEventListener('click', () => {
+      const isVisible = details.style.display === "block";
+      details.style.display = isVisible ? "none" : "block";
+      toggleBtn.textContent = isVisible ? "Show Details" : "Hide Details";
+    });
 
-        // Compose the card
-        card.appendChild(header);
-        card.appendChild(details);
-        card.appendChild(actions);
+    // Action buttons
+    const actions = document.createElement('div');
+    actions.classList.add('project-actions');
 
-        projectsList.appendChild(card);
+    // Update button
+    const updateBtn = document.createElement('button');
+    updateBtn.textContent = "Update";
+    updateBtn.classList.add('btn', 'btn-update');
+    updateBtn.addEventListener('click', () => {
+      window.location.href = `updateProject.html?id=${project._id}`;
+    });
+
+    // Delete button
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = "Delete";
+    deleteBtn.classList.add('btn', 'btn-delete');
+    deleteBtn.addEventListener('click', () => confirmDeleteProject(project, card));
+
+    // Status change dropdown
+    const statusSelect = createStatusDropdown(statusValue, async (newStatus) => {
+      try {
+        await statusManager.updateStatus(newStatus);
+        updateStatusDisplay(newStatus, statusBadge, details);
+      } catch (err) {
+        console.error('Status update failed:', err);
+        alert(`Failed to update status: ${err.message}`);
+        statusSelect.value = statusValue; // Revert on error
+      }
+    });
+
+    const statusContainer = document.createElement('div');
+    statusContainer.classList.add('status-control');
+    statusContainer.innerHTML = '<span>Change Status:</span>';
+    statusContainer.appendChild(statusSelect);
+
+    actions.appendChild(updateBtn);
+    actions.appendChild(deleteBtn);
+    actions.appendChild(statusContainer);
+
+    // Compose the complete card
+    card.appendChild(header);
+    card.appendChild(details);
+    card.appendChild(actions);
+
+    return card;
+  }
+
+  function createStatusBadge(statusValue) {
+    const badge = document.createElement('div');
+    badge.classList.add('status-badge');
+    badge.innerHTML = `
+      <span class="status-indicator" style="background-color: ${StatusManager.getStatusColor(statusValue)}"></span>
+      <span class="status-text">${statusValue.toUpperCase()}</span>
+    `;
+    return badge;
+  }
+
+  function createFlagBadge(flagValue, totalEmissions) {
+    const badge = document.createElement('div');
+    badge.classList.add('flag-badge');
+    const displayText = flagValue === "no-data" ? "No benchmark data" : `Benchmark: ${flagValue.toUpperCase()}`;
+    badge.innerHTML = `
+      <span class="flag-indicator" style="background-color: ${flagColors[flagValue] || flagColors["no-data"]}"></span>
+      <span class="flag-text">${displayText}</span>
+      ${totalEmissions ? `<span class="emissions">(${totalEmissions.toFixed(2)} kg CO₂e)</span>` : ''}
+    `;
+    return badge;
+  }
+
+  function createProjectDetails(project, statusValue, flagValue) {
+    const details = document.createElement('div');
+    details.classList.add('project-details');
+    details.style.display = "none";
+    
+    const formattedDate = project.createdAt ? new Date(project.createdAt).toLocaleDateString() : "N/A";
+    const formattedUpdate = project.updatedAt ? new Date(project.updatedAt).toLocaleDateString() : "N/A";
+    const costEfficiency = project.projectCost ? (project.totalEmissions / project.projectCost).toFixed(4) : "N/A";
+
+    details.innerHTML = `
+      <div class="detail-row">
+        <span class="detail-label">SME Name:</span>
+        <span class="detail-value">${project.smeName || "N/A"}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Business ID:</span>
+        <span class="detail-value">${project.businessID || "N/A"}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Status:</span>
+        <span class="detail-value" style="color:${StatusManager.getStatusColor(statusValue)}">
+          ${statusValue.toUpperCase()}
+        </span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Project Cost:</span>
+        <span class="detail-value">ZAR ${project.projectCost?.toFixed(2) || "N/A"}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Location:</span>
+        <span class="detail-value">${project.municipality || "N/A"}, ${project.province || "N/A"}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Benchmark Status:</span>
+        <span class="detail-value" style="color:${flagColors[flagValue]}">
+          ${flagValue.toUpperCase()}
+        </span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Total Emissions:</span>
+        <span class="detail-value">${project.totalEmissions?.toFixed(2) || "N/A"} kg CO₂e</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Cost Efficiency:</span>
+        <span class="detail-value">${costEfficiency} kg CO₂e/ZAR</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Created:</span>
+        <span class="detail-value">${formattedDate}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Last Updated:</span>
+        <span class="detail-value">${formattedUpdate}</span>
+      </div>
+    `;
+
+    return details;
+  }
+
+  function createStatusDropdown(currentStatus, onChangeHandler) {
+    const select = document.createElement('select');
+    select.classList.add('status-select');
+    
+    StatusManager.getStatusOptions().forEach(option => {
+      const optElement = document.createElement('option');
+      optElement.value = option.value;
+      optElement.textContent = option.label;
+      optElement.selected = option.value === currentStatus;
+      select.appendChild(optElement);
+    });
+
+    select.addEventListener('change', (e) => {
+      onChangeHandler(e.target.value);
+    });
+
+    return select;
+  }
+
+  function updateStatusDisplay(newStatus, statusBadge, detailsElement) {
+    // Update status badge
+    const indicator = statusBadge.querySelector('.status-indicator');
+    const text = statusBadge.querySelector('.status-text');
+    
+    indicator.style.backgroundColor = StatusManager.getStatusColor(newStatus);
+    text.textContent = newStatus.toUpperCase();
+
+    // Update details display
+    const statusDetail = detailsElement.querySelector('.detail-row:nth-child(3) .detail-value');
+    statusDetail.textContent = newStatus.toUpperCase();
+    statusDetail.style.color = StatusManager.getStatusColor(newStatus);
+  }
+
+  async function confirmDeleteProject(project, cardElement) {
+    if (!confirm(`Are you sure you want to delete project "${project.projectName}"?`)) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`http://localhost:5000/api/sme-projects/${project._id}`, {
+        method: 'DELETE'
       });
 
+      if (!res.ok) {
+        throw new Error(await res.text() || 'Failed to delete project');
+      }
+
+      cardElement.remove();
     } catch (err) {
-      projectsList.innerHTML = `<p class="error">Error: ${err.message}</p>`;
-      console.error(err);
+      console.error('Delete failed:', err);
+      alert(`Error: ${err.message}`);
     }
-  });
+  }
 });

@@ -13,7 +13,7 @@ const router = express.Router();
 router.post('/', createInvestment);
 
 // Get all investments
-router.get('/', getAllInvestments);
+router.get('/:id', getAllInvestments);
 
 // Get investments by investorID
 router.get('/investor/:investorID', getInvestmentsByInvestorID);

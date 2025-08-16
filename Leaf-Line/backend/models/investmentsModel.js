@@ -9,7 +9,7 @@ const emissionSourceSchema = new mongoose.Schema({
 });
 
 const InvestmentsSchema = new mongoose.Schema({
-  investorID: { type: String, unique: true },
+  investorID: { type: String, required: true },
   smeName: { type: String, required: true },
   projectName: { type: String, required: true },
   businessID: { type: String, required: true },
@@ -18,14 +18,23 @@ const InvestmentsSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
   sources: [emissionSourceSchema],
   totalEmissions: { type: Number, required: true },
-
-  // Benchmark check results
-  flag: { type: String, enum: ["Green", "Yellow", "Red", "no-data"], default: "no-data" },
+  projectCost: { type: Number, required: true },
+  investmentAmount: { type: Number, required: true },
+  flag: { 
+    type: String, 
+    enum: ["green", "yellow", "red", "no-data"], 
+    default: "no-data" 
+  },
   benchmarkUsed: {
-    type: mongoose.Schema.Types.Mixed, // stores snapshot of benchmark used
+    type: mongoose.Schema.Types.Mixed,
     default: null
+  },
+  status: {
+    type: String,
+    enum: ["active", "completed", "cancelled"],
+    default: "active"
   }
-});
+}, { timestamps: true });
 
-const Investments = mongoose.model("InvestmentsDB", InvestmentsSchema);
+const Investments = mongoose.model("Investments", InvestmentsSchema);
 export default Investments;

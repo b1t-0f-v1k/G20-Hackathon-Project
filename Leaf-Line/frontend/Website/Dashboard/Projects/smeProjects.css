@@ -152,3 +152,254 @@ button.toggle-details:hover {
   justify-content: space-between;
   align-items: flex-start;
 }
+
+/* Status badges */
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9em;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+  margin-top: 4px;
+}
+
+/* Status change controls */
+.status-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.status-select {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 0.9em;
+}
+
+/* Project header layout */
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+/* Action buttons layout */
+.project-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.update-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .project-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .status-container {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .status-select {
+    width: 100%;
+  }
+}
+
+/* Status badges */
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9em;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+  margin-top: 4px;
+}
+
+/* Status change controls */
+.status-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.status-select {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 0.9em;
+}
+
+/* Loading state */
+.loading-spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Project card */
+.project-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.project-meta-container {
+  flex: 1;
+}
+
+.project-title {
+  margin: 0 0 10px 0;
+  color: #2c3e50;
+}
+
+/* Status and flag badges */
+.status-badge, .flag-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+  margin-right: 10px;
+  margin-bottom: 8px;
+  font-size: 0.85em;
+}
+
+.status-indicator, .flag-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+/* Project details */
+.project-details {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.detail-row {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.detail-label {
+  font-weight: bold;
+  min-width: 120px;
+  color: #555;
+}
+
+.detail-value {
+  flex: 1;
+}
+
+/* Action buttons */
+.project-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-update {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Status control */
+.status-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-select {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+/* Error and empty states */
+.error-message {
+  color: #dc3545;
+  text-align: center;
+}
+
+.no-projects {
+  text-align: center;
+  color: #6c757d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .project-header {
+    flex-direction: column;
+  }
+  
+  .project-actions {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .status-control {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

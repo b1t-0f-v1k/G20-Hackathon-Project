@@ -2,31 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Investments Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carbon Investments Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="./hub.css">
 </head>
 <body>
-  <h1>Investors Hub</h1>
+  <header class="dashboard-header">
+    <div class="header-content">
+      <h1><i class="fas fa-leaf"></i> Carbon Investments Hub</h1>
+      <p class="subtitle">Discover and invest in sustainable projects</p>
+    </div>
+  </header>
 
-  <div class="search-container">
-    <input type="text" id="name" placeholder="Business/Project Name" />
-    <select id="searchType">
-      <option value="project">Project Name</option>
-      <option value="business">Business Name</option>
-      <option value="both">Search Both</option>
-    </select>
-    <button id="loadProjects">Load Projects</button>
-  </div>
-  
-  <div id="projectsList"></div>
+  <main class="dashboard-container">
+    <section class="search-section">
+      <div class="search-controls">
+        <div class="search-input-group">
+          <input type="text" id="searchInput" placeholder="Search projects..." class="search-input">
+          <button id="searchBtn" class="search-button">
+            <i class="fas fa-search"></i> Search
+          </button>
+        </div>
+        
+        <div class="filter-controls">
+          <div class="filter-group">
+            <label for="filterType">Filter By:</label>
+            <select id="filterType" class="filter-select">
+              <option value="projectName">Project Name</option>
+              <option value="smeName">Business Name</option>
+              <option value="province">Province</option>
+              <option value="municipality">Municipality</option>
+              <option value="flag">Emission Status</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <label for="sortBy">Sort By:</label>
+            <select id="sortBy" class="filter-select">
+              <option value="projectCost-desc">Project Cost (High to Low)</option>
+              <option value="projectCost-asc">Project Cost (Low to High)</option>
+              <option value="totalEmissions-desc">Emissions (High to Low)</option>
+              <option value="totalEmissions-asc">Emissions (Low to High)</option>
+              <option value="createdAt-desc">Date (Newest First)</option>
+              <option value="createdAt-asc">Date (Oldest First)</option>
+            </select>
+          </div>
+          
+          <button id="resetFilters" class="reset-button">
+            <i class="fas fa-sync-alt"></i> Reset
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="results-section">
+      <div class="results-header">
+        <h2>Available Projects</h2>
+        <div class="results-count">
+          <span id="resultsCount">0</span> projects found
+        </div>
+      </div>
+      
+      <div id="projectsList" class="projects-grid"></div>
+      
+      <div class="pagination-controls">
+        <button id="prevPage" class="pagination-button" disabled>
+          <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <span id="pageInfo">Page 1 of 1</span>
+        <button id="nextPage" class="pagination-button" disabled>
+          Next <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </section>
+  </main>
 
   <div id="investModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <h2>Invest in Project</h2>
-      <input type="text" id="investorIDInput" placeholder="Enter your Investor ID">
-      <button id="confirmInvest">Confirm Investment</button>
+      <h2><i class="fas fa-hand-holding-usd"></i> Invest in Project</h2>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="investorIDInput">Investor ID:</label>
+          <input type="text" id="investorIDInput" placeholder="Enter your Investor ID" class="modal-input">
+        </div>
+        <div class="form-group">
+          <label for="investmentAmount">Investment Amount (ZAR):</label>
+          <input type="number" id="investmentAmount" placeholder="Enter amount" class="modal-input">
+        </div>
+        <button id="confirmInvest" class="modal-button">
+          <i class="fas fa-check-circle"></i> Confirm Investment
+        </button>
+      </div>
     </div>
   </div>
 

@@ -182,3 +182,50 @@ export const deleteProject = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// Get all projects
+export const getAllProjects = async (req, res) => {
+  try {
+    const { status } = req.query;
+    const query = {};
+    
+    if (status) {
+      query.status = status;
+    }
+    
+    const projects = await SMEProjectEmission.find(query);
+    const normalizedProjects = projects.map(project => ({
+      ...project.toObject(),
+      flag: project.flag ? project.flag.toLowerCase() : "no-data"
+    }));
+    
+    res.json(normalizedProjects);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const updateProjectStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    
+    if (!["active", "completed", "cancelled"].includes(status)) {
+      return res.status(400).json({ error: "Invalid status value" });
+    }
+    
+    const updated = await SMEProjectEmission.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
+    
+    if (!updated) {
+      return res.status(404).json({ error: "Project not found" });
+    }
+    
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

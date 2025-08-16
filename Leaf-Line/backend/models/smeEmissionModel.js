@@ -30,6 +30,11 @@ const SMEProjectEmissionSchema = new mongoose.Schema({
     yellowThreshold: Number,
     redThreshold: Number,
     unit: String
+  },
+  status: {
+    type: String,
+    enum: ["active", "completed", "cancelled"],
+    default: "active"
   }
 }, { timestamps: true });
 

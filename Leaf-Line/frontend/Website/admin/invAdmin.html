@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Benchmarks</title>
+    <link rel="stylesheet" href="./invAdmin.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBla6PaWsRXb9eaSWP6KnJ5LhqH0tAGaR4",
+            authDomain: "hackathon-auth-4fa00.firebaseapp.com",
+            projectId: "hackathon-auth-4fa00",
+        };
+        
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+    </script>
+</head>
+<body>
+    <div id="login-screen">
+        
+        <h1>Admin Login</h1>
+        <h3><strong>Note:</strong></h3>
+        <p>The Admin Page is for view/editing local benchmarks values used in the Carbon Footprint Calculator</p>
+        <p>There is viewer Mode and Editor mode acessible through different passwords</p>
+        <p>Do <a href="#">Contact Us</a> for access and more information</p>
+
+        <input type="password" id="admin-password" placeholder="Enter password">
+        <button id="login-btn">Login</button>
+        <p id="login-error" style="color:red;"></p>
+    </div>
+
+    <!-- Investor ID Retrieval Section -->
+    <div id="investor-id-section" class="investor-id-section">
+        <h2>Retrieve Your Investor ID</h2>
+        <div class="form-group">
+            <input type="email" id="retrieve-id-email" placeholder="Your registered email" class="form-input">
+        </div>
+        <div class="form-group">
+            <input type="password" id="retrieve-id-password" placeholder="Your password" class="form-input">
+        </div>
+        <button id="retrieve-id-btn" class="form-button">Retrieve ID</button>
+        <div id="investor-id-result" class="result-container"></div>
+    </div>
+
+    <div id="admin-panel" style="display:none;">
+        <h1>Local Benchmarks</h1>
+        <p id="access-level"></p>
+
+        <table id="benchmark-table">
+            <thead>
+                <tr>
+                    <th>Province</th>
+                    <th>Municipality</th>
+                    <th>Threshold</th>
+                    <th>Unit</th>
+                    <th>Source URL</th>
+                    <th>Last Updated</th>
+                    <th>Notes</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div id="add-section" style="display:none;">
+            <h2>Add New Benchmark</h2>
+            <input type="text" id="new-province" placeholder="Province">
+            <input type="text" id="new-municipality" placeholder="Municipality">
+            <input type="number" id="new-threshold" placeholder="Threshold">
+            <input type="text" id="new-unit" placeholder="Unit">
+            <input type="text" id="new-sourceUrl" placeholder="Source URL">
+            <input type="date" id="new-lastUpdated">
+            <input type="text" id="new-notes" placeholder="Notes">
+            <button id="add-btn">Add Benchmark</button>
+        </div>
+
+        
+        
+    </div>
+
+    <script src="./invAdmin.js" defer></script>
+    <script src="../SignUpLoginPage/utilities/investorID.js"></script>
+</body>
+</html>

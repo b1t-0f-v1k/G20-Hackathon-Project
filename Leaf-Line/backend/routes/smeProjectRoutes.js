@@ -7,7 +7,9 @@ import {
   updateProject,
   deleteProject,
   getProjectsBySMEName,
-  getProjectsByProjectName
+  getProjectsByProjectName,
+  getAllProjects,
+  updateProjectStatus 
 } from "../controllers/smeProjectController.js";
 
 const router = express.Router();
@@ -17,11 +19,14 @@ const router = express.Router();
 router.get("/business-id/:businessID", getProjectsByBusinessID);
 router.get("/business-name/:businessName", getProjectsBySMEName);
 router.get("/project-name/:projectName", getProjectsByProjectName);
+router.get("/", getAllProjects);
+router.get("/:id", getProjectById);
 
 router.delete("/:id", deleteProject);
 router.put("/:id", updateProject);
-router.get("/:id", getProjectById);
 router.post("/", createProject);
+router.patch('/:id/status', updateProjectStatus);
+
 
 // Add a source
 router.post('/projects/:projectId/sources', async (req, res) => {

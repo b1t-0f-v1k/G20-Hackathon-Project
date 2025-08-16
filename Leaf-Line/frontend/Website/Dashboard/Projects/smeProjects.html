@@ -21,6 +21,12 @@
   
   <div class="search-container">
     <input type="text" id="businessID" placeholder="Enter Business ID" />
+    <select id="statusFilter">
+      <option value="">All Statuses</option>
+      <option value="active">Active</option>
+      <option value="completed">Completed</option>
+      <option value="cancelled">Cancelled</option>
+    </select>
     <button id="loadProjects">Load Projects</button>
   </div>
   <div id="projectsList"></div>

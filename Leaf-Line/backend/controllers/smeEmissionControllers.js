@@ -50,7 +50,8 @@ export const createSMEEmission = async (req, res) => {
       totalEmissions,
       projectCost,
       flag,
-      benchmarkUsed
+      benchmarkUsed,
+      status: "active" // Default
     });
 
     res.status(201).json({
@@ -79,5 +80,31 @@ export const getAllSMEEmissions = async (req, res) => {
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch SME emissions" });
+  }
+};
+
+// Add this new function for status updates
+export const updateProjectStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    
+    if (!["active", "completed", "cancelled"].includes(status)) {
+      return res.status(400).json({ error: "Invalid status value" });
+    }
+    
+    const updated = await SMEProjectEmission.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
+    
+    if (!updated) {
+      return res.status(404).json({ error: "Project not found" });
+    }
+    
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };

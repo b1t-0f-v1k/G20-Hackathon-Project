@@ -82,13 +82,23 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     const data = await response.json();
 
     if (response.ok) {
-      alert("Signup successful! Redirecting to Dashboard...");
-      window.location.href = isInvestorPage ? "../../Dashboard/Investors/InvestorDashboard.html" : "../../Dashboard/Employee/EmployeeDashboard.html";
-    } else {
-      alert("Signup failed: " + (data.error || "Unknown error"));
-    }
+      console.log('Registration successful, data:', data);
+      if (data.user && data.user.investorID) {
+        // Store in sessionStorage and also as URL parameter as fallback
+        sessionStorage.setItem('newInvestorID', data.user.investorID);
+        const redirectUrl = isInvestorPage 
+          ? `../../Dashboard/Investors/InvestorDashboard.html?investorID=${data.user.investorID}`
+          : `../../Dashboard/Employee/EmployeeDashboard.html`;
+        window.location.href = redirectUrl;
+      } else {
+        console.error('No investorID in response data');
+        window.location.href = isInvestorPage 
+          ? "../../Dashboard/Investors/InvestorDashboard.html" 
+          : "../../Dashboard/Employee/EmployeeDashboard.html";
+      }
+    } 
   } catch (err) {
-    console.error("🔥 Signup failed:", err.message);
-    alert("Signup failed: " + err.message);
-  }
+      console.error("🔥 Signup failed:", err.message);
+      alert("Signup failed: " + err.message);
+    }
 });

@@ -239,3 +239,28 @@ button[type="button"]:hover {
     width: 100%;
   }
 }
+
+/* Add to calculator.css */
+.status-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  margin-right: 8px;
+}
+
+.project-meta {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.flag-badge {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+}

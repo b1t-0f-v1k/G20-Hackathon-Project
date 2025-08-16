@@ -51,15 +51,11 @@ function destroyAllCharts() {
     // Clear the chart instances object
     chartInstances = {};
     
-    // Clear all canvas elements
-    document.querySelectorAll('.chart-container canvas').forEach(canvas => {
-        canvas.remove();
-    });
-    
-    // Recreate canvas elements
-    document.querySelectorAll('.chart-container').forEach(container => {
-        const canvas = document.createElement('canvas');
-        container.appendChild(canvas);
+    // Don't remove canvas elements since they're explicitly defined in HTML
+    // Just clear their contents if needed
+    document.querySelectorAll('canvas').forEach(canvas => {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
 }
 
@@ -332,16 +328,24 @@ function createEfficiencyChart(projects) {
 }
 
 function createCostEmissionsChart(projects) {
-    const container = document.querySelector('#comparison-section .chart-container:nth-child(3)');
-    const canvas = container.querySelector('canvas');
-    canvas.id = 'costEmissionsChart';
-    
-    const validProjects = projects.filter(p => typeof p.projectCost === 'number' && typeof p.totalEmissions === 'number');
-    if (validProjects.length === 0) {
-        console.error("No valid projects for Cost Emissions Chart");
+    const canvas = document.getElementById('costEmissionsChart');
+    if (!canvas) {
+        console.error("Cost Emissions Chart canvas not found");
         return;
     }
-
+    
+    const validProjects = projects.filter(p => 
+        typeof p.projectCost === 'number' && 
+        typeof p.totalEmissions === 'number' &&
+        !isNaN(p.projectCost) && 
+        !isNaN(p.totalEmissions)
+    );
+    
+    if (validProjects.length === 0) {
+        console.error("No valid projects for Cost Emissions Chart");
+        canvas.parentElement.innerHTML = '<p class="error-message">No valid cost/emissions data available</p>';
+        return;
+    }
     const data = {
         datasets: [{
             label: 'Projects',
@@ -421,13 +425,23 @@ function createCostEmissionsChart(projects) {
 }
 
 function createCostEfficiencyChart(projects) {
-    const container = document.querySelector('#comparison-section .chart-container:nth-child(4)');
-    const canvas = container.querySelector('canvas');
-    canvas.id = 'costEfficiencyChart';
+    const canvas = document.getElementById('costEfficiencyChart');
+    if (!canvas) {
+        console.error("Cost Efficiency Chart canvas not found");
+        return;
+    }
     
-    const validProjects = projects.filter(p => typeof p.projectCost === 'number' && p.projectCost > 0 && typeof p.totalEmissions === 'number');
+    const validProjects = projects.filter(p => 
+        typeof p.projectCost === 'number' && 
+        p.projectCost > 0 && 
+        typeof p.totalEmissions === 'number' &&
+        !isNaN(p.projectCost) && 
+        !isNaN(p.totalEmissions)
+    );
+    
     if (validProjects.length === 0) {
         console.error("No valid projects for Cost Efficiency Chart");
+        canvas.parentElement.innerHTML = '<p class="error-message">No valid cost/efficiency data available</p>';
         return;
     }
 

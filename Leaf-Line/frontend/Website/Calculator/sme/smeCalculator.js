@@ -148,13 +148,25 @@ document.addEventListener("DOMContentLoaded", async () => {
       red: '#dc3545'
     };
 
+    // Add status display
+    const statusColors = {
+      active: '#28a745',
+      completed: '#17a2b8',
+      cancelled: '#dc3545'
+    };
+
     resultsContainer.innerHTML = `
       <h3>Emissions Report</h3>
       <div class="result-item">
         <h4>Project Summary</h4>
         <p><strong>Name:</strong> ${data.data.projectName}</p>
+        <p><strong>Status:</strong> 
+          <span style="color:${statusColors[data.data.status || 'active']}">
+            ${(data.data.status || 'active').toUpperCase()}
+          </span>
+        </p>
         <p><strong>Location:</strong> ${data.data.municipality}, ${data.data.province}</p>
-        <p><strong>Project Cost:</strong> $${data.data.projectCost.toFixed(2)}</p>
+        <p><strong>Project Cost:</strong> R${data.data.projectCost.toFixed(2)}</p>
       </div>
       
       <div class="result-item">
@@ -190,7 +202,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       <div class="result-item">
         <h4>Cost Efficiency</h4>
-        <p>${(data.data.totalEmissions / data.data.projectCost).toFixed(4)} kg CO₂e per $</p>
+        <p>${(data.data.totalEmissions / data.data.projectCost).toFixed(4)} kg CO₂e per ZAR</p>
       </div>
       
       ${data.data.benchmarkUsed ? `

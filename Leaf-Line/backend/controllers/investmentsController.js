@@ -13,11 +13,13 @@ export const createInvestment = async (req, res) => {
       sources, 
       totalEmissions,
       flag,
-      benchmarkUsed
+      benchmarkUsed,
+      projectCost,
+      investmentAmount
     } = req.body;
 
     // Validate required fields
-    if (!investorID || !smeName || !projectName || !businessID) {
+    if (!investorID || !smeName || !projectName || !businessID || !projectCost || !investmentAmount) {
       return res.status(400).json({
         success: false,
         message: "Missing required fields"
@@ -26,15 +28,17 @@ export const createInvestment = async (req, res) => {
     
     const investment = await Investments.create({
       investorID,
-      smeName,
-      projectName,
-      businessID,
-      province,
-      municipality,
-      sources,
+      smeName, 
+      projectName, 
+      businessID, 
+      province, 
+      municipality, 
+      sources, 
       totalEmissions,
       flag,
-      benchmarkUsed
+      benchmarkUsed,
+      projectCost,
+      investmentAmount
     });
 
     res.status(201).json({
@@ -71,15 +75,39 @@ export const getAllInvestments = async (req, res) => {
   }
 };
 
-// Add this new function to get investments by investorID
+// Get investments by investorID with filtering
 export const getInvestmentsByInvestorID = async (req, res) => {
   try {
     const { investorID } = req.params;
-    const investments = await Investments.find({ investorID });
+    const { status, sortBy, limit } = req.query;
+    
+    // Build query
+    const query = { investorID };
+    if (status) query.status = status;
+    
+    // Build sort
+    let sort = {};
+    if (sortBy) {
+      const parts = sortBy.split(':');
+      sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
+    } else {
+      sort = { createdAt: -1 }; // Default sort by newest first
+    }
+    
+    // Execute query
+    const investments = await Investments.find(query)
+      .sort(sort)
+      .limit(parseInt(limit) || 0);
+    
+    // Calculate totals
+    const totalInvested = investments.reduce((sum, inv) => sum + inv.investmentAmount, 0);
+    const totalProjects = investments.length;
     
     res.status(200).json({
       success: true,
       count: investments.length,
+      totalInvested,
+      totalProjects,
       data: investments
     });
   } catch (error) {
