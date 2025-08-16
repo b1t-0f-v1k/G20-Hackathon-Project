@@ -5,15 +5,74 @@ body {
   padding: 20px;
 }
 
-h1 {
-  text-align: center;
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
 }
 
-#projects-container {
+.flag-key {
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border: 1px solid #dee2e6;
+  min-width: 200px;
+}
+
+.flag-key h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 1em;
+}
+
+.key-item {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 20px;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 0.9em;
+}
+
+.key-color {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.key-color.green { background-color: #28a745; }
+.key-color.yellow { background-color: #ffc107; }
+.key-color.orange { background-color: #fd7e14; }
+.key-color.red { background-color: #dc3545; }
+.key-color.no-data { background-color: #6c757d; }
+
+.search-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#businessID {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex-grow: 1;
+  max-width: 300px;
+}
+
+#loadProjects {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#loadProjects:hover {
+  background-color: #0056b3;
 }
 
 .project-card {
@@ -28,10 +87,6 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.project-header h3 {
-  margin: 0;
 }
 
 .details {
@@ -72,4 +127,28 @@ button.toggle-details {
 
 button.toggle-details:hover {
   background: #0056b3;
+}
+
+.project-flag {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  margin-top: 4px;
+}
+
+.project-card {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: white;
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }

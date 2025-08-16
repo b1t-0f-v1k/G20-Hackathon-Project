@@ -13,6 +13,7 @@ import smeEmissionRoutes from "./routes/smeEmissionRoutes.js";
 import localBenchmarkRoutes from "./routes/localBenchmarkRoutes.js";
 import smeProjectRoutes from "./routes/smeProjectRoutes.js";
 import getAllSMEEmissions from "./routes/smeEmissionRoutes.js";
+import investmentsRoutes from './routes/investmentsRoutes.js';
 
 const app = express();
 
@@ -35,8 +36,9 @@ app.use("/api", lifestyleEmissionRoutes);
 app.use("/api", smeEmissionRoutes);
 app.use("/api", emissionFactorRoutes);
 app.use("/api/local-benchmarks", localBenchmarkRoutes);
-app.use("/api", smeProjectRoutes);
+app.use("/api/sme-projects", smeProjectRoutes);
 app.use("/api", getAllSMEEmissions);
+app.use('/api/investments', investmentsRoutes);
 
 console.log("🔍 Connecting to MongoDB Atlas...");
 console.log("📡 Connection string (hidden password):", process.env.MONGO_URI.replace(/\/\/(.*?):(.*?)@/, "//$1:****@"));

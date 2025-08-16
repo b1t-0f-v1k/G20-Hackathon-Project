@@ -7,6 +7,7 @@ const normalizeFlag = (flag) => {
   if (lower === "red") return "Red";
   if (lower === "green") return "Green";
   if (lower === "yellow") return "Yellow";
+  if (lower === "orange") return "Orange";
   if (lower === "no-data") return "No-data";
   return flag;
 };
@@ -16,7 +17,14 @@ export const getProjectsByBusinessID = async (req, res) => {
   try {
     const { businessID } = req.params;
     const projects = await SMEProjectEmission.find({ businessID });
-    res.json(projects);
+    
+    // Normalize flags before returning
+    const normalizedProjects = projects.map(project => ({
+      ...project.toObject(),
+      flag: project.flag ? project.flag.toLowerCase() : "no-data"
+    }));
+    
+    res.json(normalizedProjects);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -34,10 +42,32 @@ export const getProjectById = async (req, res) => {
   }
 };
 
+// Get all projects for a specific Business Name
+export const getProjectsBySMEName = async (req, res) => {
+  try {
+    const { smeName } = req.params;
+    const projects = await SMEProjectEmission.find({ smeName });
+    res.json(projects);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Get projects by Name
+export const getProjectsByProjectName = async (req, res) => {
+  try {
+    const { projectName } = req.params;
+    const projects = await SMEProjectEmission.find({ projectName });
+    res.json(projects);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 // Create a new project
 export const createProject = async (req, res) => {
   try {
-    const { province, municipality, activityData, emissionFactor } = req.body;
+    const { province, municipality, activityData, emissionFactor, projectCost } = req.body;
 
     // Calculate total emissions
     const totalEmissions = activityData * emissionFactor;
@@ -52,19 +82,26 @@ export const createProject = async (req, res) => {
       benchmarkUsed = benchmark;
 
       if (!benchmark) {
-        flag = "No-data";
-      } else if (totalEmissions > benchmark.redThresholdKg) {
-        flag = "Red";
-      } else if (totalEmissions < benchmark.greenThresholdKg) {
-        flag = "Green";
+        flag = "no-data";
       } else {
-        flag = "Yellow";
+        if (totalEmissions <= benchmark.greenThreshold) {
+          flag = "green";
+        } else if (totalEmissions <= benchmark.yellowThreshold) {
+          flag = "yellow";
+        }  else if (totalEmissions <= benchmark.redThreshold) {
+          flag = "orange";
+        } else {
+          flag = "red";
+        }
       }
+    } else {
+      flag = "no-data";
     }
 
     const newProject = new SMEProjectEmission({
       ...req.body,
       totalEmissions,
+      projectCost,
       benchmarkUsed,
       flag: normalizeFlag(flag), // ALWAYS override after spreading
     });
@@ -81,7 +118,7 @@ export const createProject = async (req, res) => {
 export const updateProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const { province, municipality, sources } = req.body;
+    const { province, municipality, sources, projectCost } = req.body;
 
     if (!Array.isArray(sources)) {
       return res.status(400).json({ error: "Sources must be an array" });
@@ -101,19 +138,26 @@ export const updateProject = async (req, res) => {
       benchmarkUsed = benchmark;
 
       if (!benchmark) {
-        flag = "No-data";
-      } else if (totalEmissions > benchmark.redThresholdKg) {
-        flag = "Red";
-      } else if (totalEmissions < benchmark.greenThresholdKg) {
-        flag = "Green";
+        flag = "no-data";
       } else {
-        flag = "Yellow";
+        if (totalEmissions <= benchmark.greenThreshold) {
+          flag = "green";
+        } else if (totalEmissions <= benchmark.yellowThreshold) {
+          flag = "yellow";
+        } else if (totalEmissions <= benchmark.redThreshold) {
+          flag = "orange";
+        } else {
+          flag = "red";
+        }
       }
+    } else {
+      flag = "no-data";
     }
 
     const updateData = {
       ...req.body,
       totalEmissions,
+      projectCost,
       benchmarkUsed,
       flag: normalizeFlag(flag), // ALWAYS override
     };

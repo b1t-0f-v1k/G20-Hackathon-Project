@@ -6,7 +6,7 @@ const emissionSourceSchema = new mongoose.Schema({
   unit: { type: String, required: true },
   emissionFactor: { type: Number, required: true },
   emissions: { type: Number, required: true }
-});
+}, { _id: false });
 
 const SMEProjectEmissionSchema = new mongoose.Schema({
   smeName: { type: String, required: true },
@@ -17,14 +17,20 @@ const SMEProjectEmissionSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
   sources: [emissionSourceSchema],
   totalEmissions: { type: Number, required: true },
-
-  // Benchmark check results
-  flag: { type: String, enum: ["green", "yellow", "red", "no-data"], default: "no-data" },
+  projectCost: {type: Number, required: true },
+  flag: { 
+    type: String, 
+    enum: ["green", "yellow", "orange", "red", "no-data"], 
+    default: "no-data" 
+  },
   benchmarkUsed: {
-    type: mongoose.Schema.Types.Mixed, // stores snapshot of benchmark used
-    default: null
+    province: String,
+    municipality: String,
+    greenThreshold: Number,
+    yellowThreshold: Number,
+    redThreshold: Number,
+    unit: String
   }
-});
+}, { timestamps: true });
 
-const SMEProjectEmission = mongoose.model("SMEProjectEmission", SMEProjectEmissionSchema);
-export default SMEProjectEmission;
+export default mongoose.model("SMEProjectEmission", SMEProjectEmissionSchema);

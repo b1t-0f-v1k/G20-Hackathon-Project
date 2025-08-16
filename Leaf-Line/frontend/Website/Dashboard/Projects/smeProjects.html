@@ -7,9 +7,22 @@
   <link rel="stylesheet" href="smeProjects.css">
 </head>
 <body>
-  <h1>SME Projects</h1>
-  <input type="text" id="businessID" placeholder="Enter Business ID" />
-  <button id="loadProjects">Load Projects</button>
+  <div class="header-container">
+    <h1>SME Projects</h1>
+    <div class="flag-key">
+      <h3>Status Key:</h3>
+      <div class="key-item"><span class="key-color green"></span>Green: Below target</div>
+      <div class="key-item"><span class="key-color yellow"></span>Yellow: Near target</div>
+      <div class="key-item"><span class="key-color orange"></span>Orange: Approaching limit</div>
+      <div class="key-item"><span class="key-color red"></span>Red: Above limit</div>
+      <div class="key-item"><span class="key-color no-data"></span>No data</div>
+    </div>
+  </div>
+  
+  <div class="search-container">
+    <input type="text" id="businessID" placeholder="Enter Business ID" />
+    <button id="loadProjects">Load Projects</button>
+  </div>
   <div id="projectsList"></div>
 
   <script src="smeProjects.js"></script>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Emissions Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./Chart.css">
+</head>
+<body>
+    <div class="topbar">
+        <div class="main">
+            <h1>Carbon Emissions Dashboard</h1>
+        </div>
+
+        <div id="input-section">
+            <label for="businessIdInput">Business ID:</label>
+            <input type="text" id="businessIdInput" placeholder="Enter business ID">
+            <button id="loadGraphBtn">Load Data</button>
+        </div>
+    </div>
+
+    <div class="dashboard-controls">
+        <button class="chart-toggle active" data-chart="overview">Overview</button>
+        <button class="chart-toggle" data-chart="breakdown">Breakdown</button>
+        <button class="chart-toggle" data-chart="trend">Trends</button>
+        <button class="chart-toggle" data-chart="comparison">Comparison</button>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="chart-section" id="overview-section">
+            <div class="chart-container">
+                <canvas id="totalEmissionsChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="emissionsDistributionChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-section hidden" id="breakdown-section">
+            <div class="chart-container full-width">
+                <canvas id="stackedEmissionsChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-section hidden" id="trend-section">
+            <div class="chart-container full-width">
+                <canvas id="emissionsTrendChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-section hidden" id="comparison-section">
+            <div class="chart-container">
+                <canvas id="radarComparisonChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="efficiencyChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="costEmissionsChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="costEfficiencyChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-legend">
+        <div class="legend-item"><span class="legend-color" style="background-color: rgba(40, 167, 69, 0.8);"></span> Green: Below Target</div>
+        <div class="legend-item"><span class="legend-color" style="background-color: rgba(255, 193, 7, 0.8);"></span> Yellow: Near Target</div>
+        <div class="legend-item"><span class="legend-color" style="background-color: rgba(253, 126, 20, 0.8);"></span> Orange: Warning</div>
+        <div class="legend-item"><span class="legend-color" style="background-color: rgba(220, 53, 69, 0.8);"></span> Red: Above Limit</div>
+        <div class="legend-item"><span class="legend-color" style="background-color: rgba(108, 117, 125, 0.8);"></span> No Data</div>
+    </div>
+
+    <script src="./Chart.js"></script>
+</body>
+</html>

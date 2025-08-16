@@ -6,35 +6,51 @@
   <link rel="stylesheet" href="../Projects/updateProject.css" />
 </head>
 <body>
-  <form id="update-form">
-    <h2>Update Project</h2>
+  <div class="container">
+    <form id="update-form">
+      <div class="header-container">
+        <h2>Update Project</h2>
+        <div class="flag-key">
+          <h4>Status Key:</h4>
+          <div class="key-item"><span class="key-color green"></span>Green: Below target</div>
+          <div class="key-item"><span class="key-color yellow"></span>Yellow: Near target</div>
+          <div class="key-item"><span class="key-color orange"></span>Orange: Warning</div>
+          <div class="key-item"><span class="key-color red"></span>Red: Above limit</div>
+        </div>
+      </div>
 
-    <input type="text" id="smeName" placeholder="SME Name" required />
-    <input type="text" id="businessID" placeholder="Business ID" required />
-    <input type="text" id="projectName" placeholder="Project Name" required />
+      <input type="text" id="smeName" placeholder="SME Name" required />
+      <input type="text" id="businessID" placeholder="Business ID" required />
+      <input type="text" id="projectName" placeholder="Project Name" required />
+      <input type="number" id="projectCost" placeholder="Project Cost ($)" required min="0" step="0.01" />
 
-    <label for="province">Province:</label>
-    <select id="province" required>
-      <option value="">Select Province</option>
-    </select>
+      <label for="province">Province:</label>
+      <select id="province" required>
+        <option value="">Select Province</option>
+      </select>
 
-    <label for="municipality">Municipality:</label>
-    <select id="municipality" required>
-      <option value="">Select Municipality</option>
-    </select>
+      <label for="municipality">Municipality:</label>
+      <select id="municipality" required>
+        <option value="">Select Municipality</option>
+      </select>
 
-    <h3>Sources</h3>
-    <div id="sources-list">
-      <!-- Existing sources will be populated here -->
-    </div>
+      <div class="form-group">
+        <label>Current Emissions Status:</label>
+        <div id="flag-display" class="flag-display">
+          <span style="color:#6c757d">Enter data to calculate</span>
+        </div>
+        <div id="emissions-total" class="emissions-total"></div>
+      </div>
 
-    <div id="add-source-form">
-      
-    </div>
-    <button type="button" id="add-source-btn">Add Source</button>
+      <h3>Sources</h3>
+      <div id="sources-list"></div>
 
-    <button type="submit">Update</button>
-  </form>
+      <div id="add-source-form"></div>
+      <button type="button" id="add-source-btn">Add Source</button>
+
+      <button type="submit">Update Project</button>
+    </form>
+  </div>
 
   <script src="updateProject.js"></script>
 </body>

@@ -2,6 +2,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById('loadProjects');
   const projectsList = document.getElementById('projectsList');
 
+  // Define flag colors at the top level
+  const flagColors = {
+    green: '#28a745',
+    yellow: '#ffc107',
+    orange: '#fd7e14',
+    red: '#dc3545',
+    "no-data": '#6c757d'
+  };
+
   btn.addEventListener('click', async () => {
     const businessID = document.getElementById('businessID').value.trim();
     if (!businessID) {
@@ -12,8 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     projectsList.innerHTML = '<p>Loading projects...</p>';
 
     try {
-      // Use full backend URL and encode businessID safely
-      const res = await fetch(`http://localhost:5000/api/sme-projects/${encodeURIComponent(businessID)}`);
+      const res = await fetch(`http://localhost:5000/api/sme-projects/business-id/${encodeURIComponent(businessID)}`);
       if (!res.ok) throw new Error('Failed to fetch projects');
 
       const projects = await res.json();
@@ -37,32 +45,34 @@ document.addEventListener("DOMContentLoaded", () => {
         const titleFlagContainer = document.createElement('div');
         titleFlagContainer.style.display = 'flex';
         titleFlagContainer.style.flexDirection = 'column';
-        titleFlagContainer.style.flexGrow = '1';  // Take up remaining space so toggle button stays on right
+        titleFlagContainer.style.flexGrow = '1';
 
         const title = document.createElement('h1');
         title.textContent = proj.projectName || 'Untitled Project';
-        title.style.margin = '0';  // Optional: remove bottom margin for tighter layout
-        
+        title.style.margin = '0';
         
         const flag = document.createElement('div');
         flag.classList.add('project-flag');
-        flag.textContent = `Project Emission Status: ${proj.flag || "No flag" }`;
-        flag.style.fontWeight = 'bold'; // Optional styling
-        flag.style.marginTop = '4px';   // Small spacing below project name
-
-        // Define flag colors
-        const flagColors = {
-          red: '#ff4d4d',     // bright red
-          yellow: '#ffcc00',  // bright yellow
-          green: '#28a745',   // green
-          "no-data": '#6c757d' // gray for no data
-        };
-
-        // Normalize flag value to lowercase for matching
-        const flagKey = (proj.flag || "").toLowerCase();
-
-        // Apply color if found, fallback to black
-        flag.style.color = flagColors[flagKey] || 'black';
+        
+        // Get the flag value from the project, default to "no-data"
+        const flagValue = proj.flag ? proj.flag.toLowerCase() : "no-data";
+        const flagDisplayText = flagValue === "no-data" ? "No status available" : `Status: ${flagValue.toUpperCase()}`;
+        
+        flag.textContent = flagDisplayText;
+        flag.style.fontWeight = 'bold';
+        flag.style.marginTop = '4px';
+        
+        // Apply the color based on the flag value
+        flag.style.color = flagColors[flagValue] || flagColors["no-data"];
+        
+        // Add a colored circle indicator before the text
+        flag.innerHTML = `
+          <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; 
+                      background-color: ${flagColors[flagValue] || flagColors["no-data"]}; 
+                      margin-right: 6px;"></span>
+          ${flagDisplayText}
+          ${proj.totalEmissions ? `(${proj.totalEmissions.toFixed(2)} kg CO₂e)` : ''}
+        `;
 
         titleFlagContainer.appendChild(title);
         titleFlagContainer.appendChild(flag);
@@ -80,11 +90,14 @@ document.addEventListener("DOMContentLoaded", () => {
         details.style.display = "none";
         details.innerHTML = `
           <p><strong>SME Name:</strong> ${proj.smeName || "N/A"}</p>
+          <p><strong>Business ID:</strong> ${proj.businessID || "N/A"}</p>
+          <p><strong>Project Cost:</strong> $${proj.projectCost?.toFixed(2) || "N/A"}</p>
           <p><strong>Province:</strong> ${proj.province || "N/A"}</p>
           <p><strong>Municipality:</strong> ${proj.municipality || "N/A"}</p>
-          <p><strong>Description:</strong> ${proj.description || "No description provided"}</p>
+          <p><strong>Status:</strong> <span style="color:${flagColors[flagValue]}">${flagValue.toUpperCase()}</span></p>
+          <p><strong>Total Emissions:</strong> ${proj.totalEmissions?.toFixed(2) ?? "N/A"} kg CO₂e</p>
+          <p><strong>Cost Efficiency:</strong> ${proj.projectCost ? (proj.totalEmissions / proj.projectCost).toFixed(4) : "N/A"} kg CO₂e/$</p>
           <p><strong>Created At:</strong> ${proj.createdAt ? new Date(proj.createdAt).toLocaleDateString() : "N/A"}</p>
-          <p><strong>Total Emissions:</strong> ${proj.totalEmissions?.toFixed(2) ?? "N/A"} kg CO2e</p>
         `;
 
         toggleBtn.addEventListener('click', () => {
@@ -103,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
         updateBtn.addEventListener('click', () => {
           window.location.href = `updateProject.html?id=${proj._id}`;
         });
-        updateBtn.style.margin = "20px"
+        updateBtn.style.margin = "20px";
 
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = "Delete";

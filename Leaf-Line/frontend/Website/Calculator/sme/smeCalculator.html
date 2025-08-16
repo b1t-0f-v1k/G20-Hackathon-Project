@@ -7,31 +7,49 @@
   <link rel="stylesheet" href="../utilities/calculator.css" />
 </head>
 <body>
-  <form id="sme-form">
-    <h2>SME Carbon Calculator</h2>
+  <div class="container">
+    <div class="header-container">
+      <h1>SME Carbon Calculator</h1>
+      <div class="flag-key">
+        <h4>Status Key:</h4>
+        <div class="key-item"><span class="key-color green"></span>Green: Below target</div>
+        <div class="key-item"><span class="key-color yellow"></span>Yellow: Near target</div>
+        <div class="key-item"><span class="key-color orange"></span>Orange: Warning</div>
+        <div class="key-item"><span class="key-color red"></span>Red: Above limit</div>
+      </div>
+    </div>
+    <form id="sme-form">
+      <h2>SME Carbon Calculator</h2>
 
-    <input type="text" id="smeName" placeholder="Business Name" required />
-    <input type="text" id="businessID" placeholder="Enter Business ID" required />
-    <input type="text" id="projectName" placeholder="Project Name" required />
+      <input type="text" id="smeName" placeholder="Business Name" required />
+      <input type="text" id="businessID" placeholder="Enter Business ID" required />
+      <input type="text" id="projectName" placeholder="Project Name" required />
+      <input type="number" id="projectCost" placeholder="Project Cost (R)" required min="0" step="0.01" />
 
-    <label for="province">Province:</label>
-    <select id="province" required>
-      <option value="">-- Select Province --</option>
-    </select>
+      <label for="province">Province:</label>
+      <select id="province" required>
+        <option value="">-- Select Province --</option>
+      </select>
 
-    <label for="municipality">Municipality:</label>
-    <select id="municipality" required>
-      <option value="">-- Select Municipality --</option>
-    </select>
-    <h3>Emission Sources</h3>
-    <div id="sme-sources"></div>
-    <button type="button" id="add-sme-source" disabled>+ Add Source</button>
+      <label for="municipality">Municipality:</label>
+      <select id="municipality" required>
+        <option value="">-- Select Municipality --</option>
+      </select>
+      <h3>Emission Sources</h3>
+      <div id="sme-sources"></div>
+      <button type="button" id="add-sme-source" disabled>+ Add Source</button>
 
-    <button type="submit">Calculate</button>
-  </form>
+      <button type="submit">Calculate</button>
+    </form>
 
-  <div id="sme-results" class="results"></div>
-
+    <div class="results-container" id="sme-results">
+      <h3>Results will appear here</h3>
+      <div class="placeholder">
+        <p>Complete the form to see your carbon footprint analysis</p>
+      </div>
+    </div>
+    
+  </div>
   <script src="../utilities/provinceMunicipalityData.js"></script>
   <script src="smeCalculator.js"></script>
 </body>

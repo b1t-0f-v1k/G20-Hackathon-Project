@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Investments Hub</title>
+  <link rel="stylesheet" href="./hub.css">
+</head>
+<body>
+  <h1>Investors Hub</h1>
+
+  <div class="search-container">
+    <input type="text" id="name" placeholder="Business/Project Name" />
+    <select id="searchType">
+      <option value="project">Project Name</option>
+      <option value="business">Business Name</option>
+      <option value="both">Search Both</option>
+    </select>
+    <button id="loadProjects">Load Projects</button>
+  </div>
+  
+  <div id="projectsList"></div>
+
+  <div id="investModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Invest in Project</h2>
+      <input type="text" id="investorIDInput" placeholder="Enter your Investor ID">
+      <button id="confirmInvest">Confirm Investment</button>
+    </div>
+  </div>
+
+  <script src="./hub.js"></script>
+</body>
+</html>

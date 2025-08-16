@@ -8,7 +8,8 @@ const emissionSourceSchema = new mongoose.Schema({
   emissions: { type: Number, required: true }
 });
 
-const SMEProjectEmissionSchema = new mongoose.Schema({
+const InvestmentsSchema = new mongoose.Schema({
+  investorID: { type: String, unique: true },
   smeName: { type: String, required: true },
   projectName: { type: String, required: true },
   businessID: { type: String, required: true },
@@ -26,5 +27,5 @@ const SMEProjectEmissionSchema = new mongoose.Schema({
   }
 });
 
-const SMEProjectEmission = mongoose.model("SMEProjectEmission", SMEProjectEmissionSchema);
-export default SMEProjectEmission;
+const Investments = mongoose.model("InvestmentsDB", InvestmentsSchema);
+export default Investments;
