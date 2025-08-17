@@ -1,0 +1,160 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body {
+    min-height: 100vh;
+    background-image: url("https://images.unsplash.com/photo-1464039397811-476f652a343b?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2xpbWF0ZXxlbnwwfHwwfHx8MA%3D%3D");
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: sans-serif;
+    overflow: scroll;
+}
+
+/* Navbar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px 5%;
+    flex-wrap: wrap;
+    background: rgb(59, 97, 71);
+    position: fixed;
+    
+    padding: 25px;
+}
+
+
+
+.NavElements{
+    float: right;
+}
+
+.NavLogo{
+    float: right;
+
+
+}
+
+.NavLogo img{
+    max-width: 4rem;
+    max-height: 4rem;
+}
+
+/* Nav elements */
+.NavElements ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    list-style: none;
+    gap: 20px;
+
+}
+
+.NavElements ul li a {
+    text-decoration: none;
+    color: whitesmoke;
+    font-size: 1rem;
+    padding: 10px 20px;
+    white-space: nowrap;
+}
+
+.NavElements ul li a:hover {
+    border-bottom:2px solid white;
+    transition: ease-in;
+}
+
+
+.UnderNav {
+    
+    margin-top: 10%;
+}
+
+.UnderNav img {
+   
+    width: 600px;
+    height: 300px;
+    
+}
+
+
+/* Homepage Heading */
+.HomePageHeading {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #0F3924;;
+
+    margin-left: 25%;
+    width: 90%;
+    max-width: 800px;
+}
+
+
+/* .PublicList{
+    width: 38%;
+    margin-left: 40%;
+    list-style: none;
+    display: flex;
+    padding: 30px;
+    
+}
+
+.PublicList li a{
+    text-decoration: none;
+    color: black;
+    padding: 50px;
+    border: 2px white solid;
+    margin-left: 10px;
+    border-radius: 20px;
+    color: white;
+}
+
+.PublicList li a:hover{
+    background: rgb(255, 255, 255, 0.5);
+    color: black;
+} */
+
+
+/* Welcome Box */
+.WelcomeBorder {
+  
+    text-align: center;
+    width: 100%;
+    padding: 30px;
+    background-image: linear-gradient(to bottom right, rgb(75, 104, 72), rgb(59, 97, 71));
+    height: 600px;
+  
+}
+
+
+
+.InfoDiv {
+    
+    margin-bottom: 10%;
+    /* color: white; */
+    /* opacity: 0.0; */
+    margin-left: 12%;
+    transition: opacity 2s ;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), 0 12px 40px rgba(0, 0, 0, 0.19);
+    margin-right: 12%;
+    padding: 30px;
+
+}
+/* 
+.InfoDiv.visible{
+    opacity: 1;
+}
+ */
+
