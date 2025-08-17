@@ -197,42 +197,56 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="detail-label">SME Name:</span>
         <span class="detail-value">${project.smeName || "N/A"}</span>
       </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Description:</span>
+        <span class="detail-value">${project.description || "No description provided"}</span>
+      </div>
+
       <div class="detail-row">
         <span class="detail-label">Business ID:</span>
         <span class="detail-value">${project.businessID || "N/A"}</span>
       </div>
+
       <div class="detail-row">
         <span class="detail-label">Status:</span>
         <span class="detail-value" style="color:${StatusManager.getStatusColor(statusValue)}">
           ${statusValue.toUpperCase()}
         </span>
       </div>
+
       <div class="detail-row">
         <span class="detail-label">Project Cost:</span>
         <span class="detail-value">ZAR ${project.projectCost?.toFixed(2) || "N/A"}</span>
       </div>
+
       <div class="detail-row">
         <span class="detail-label">Location:</span>
         <span class="detail-value">${project.municipality || "N/A"}, ${project.province || "N/A"}</span>
       </div>
+
       <div class="detail-row">
         <span class="detail-label">Benchmark Status:</span>
         <span class="detail-value" style="color:${flagColors[flagValue]}">
           ${flagValue.toUpperCase()}
         </span>
       </div>
+
       <div class="detail-row">
         <span class="detail-label">Total Emissions:</span>
         <span class="detail-value">${project.totalEmissions?.toFixed(2) || "N/A"} kg CO₂e</span>
       </div>
+
       <div class="detail-row">
         <span class="detail-label">Cost Efficiency:</span>
         <span class="detail-value">${costEfficiency} kg CO₂e/ZAR</span>
       </div>
+
       <div class="detail-row">
         <span class="detail-label">Created:</span>
         <span class="detail-value">${formattedDate}</span>
       </div>
+      
       <div class="detail-row">
         <span class="detail-label">Last Updated:</span>
         <span class="detail-value">${formattedUpdate}</span>

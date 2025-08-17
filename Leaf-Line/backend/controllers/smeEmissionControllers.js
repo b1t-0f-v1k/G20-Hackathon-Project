@@ -4,7 +4,7 @@ import { checkAgainstBenchmark } from "../helpers/benchmarkHelper.js";
 
 export const createSMEEmission = async (req, res) => {
   try {
-    const { smeName, businessID, projectName, province, municipality, sources, sector, projectCost } = req.body;
+    const { smeName, businessID, projectName, province, municipality, sources, sector, projectCost, description } = req.body;
 
     if (!sources?.length) {
       return res.status(400).json({ error: "No emission sources provided" });
@@ -46,6 +46,7 @@ export const createSMEEmission = async (req, res) => {
       projectName,
       province,
       municipality,
+      description,
       sources: calculatedSources,
       totalEmissions,
       projectCost,

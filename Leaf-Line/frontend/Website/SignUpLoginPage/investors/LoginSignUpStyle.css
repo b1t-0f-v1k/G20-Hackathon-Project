@@ -192,3 +192,23 @@ button:hover{
     border-radius: 10px;
     color:rgb(215, 219, 222);
 }
+
+/* Hide browser's built-in eye icon in password fields */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button {
+    visibility: hidden;
+    display: none !important;
+}
+
+input[type="password"]::-webkit-clear-button {
+    display: none;
+}
+
+input[type="password"]::-webkit-inner-spin-button,
+input[type="password"]::-webkit-outer-spin-button {
+    display: none;
+}

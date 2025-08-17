@@ -15,7 +15,8 @@ export const createInvestment = async (req, res) => {
       flag,
       benchmarkUsed,
       projectCost,
-      investmentAmount
+      investmentAmount,
+      description
     } = req.body;
 
     // Validate required fields
@@ -32,7 +33,8 @@ export const createInvestment = async (req, res) => {
       projectName, 
       businessID, 
       province, 
-      municipality, 
+      municipality,
+      description,
       sources, 
       totalEmissions,
       flag,

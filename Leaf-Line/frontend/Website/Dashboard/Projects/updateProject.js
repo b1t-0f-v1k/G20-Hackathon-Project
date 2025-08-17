@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const addSourceFormDiv = document.getElementById("add-source-form");
   const flagDisplay = document.getElementById("flag-display");
   const emissionsTotalDisplay = document.getElementById("emissions-total");
+  const descriptionInput = document.getElementById("projectDescription");
 
   // State
   let localBenchmarks = [];
@@ -257,6 +258,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       businessIDInput.value = project.businessID || "";
       projectNameInput.value = project.projectName || "";
       projectCostInput.value = project.projectCost || "";
+      descriptionInput.value = project.description || "";
 
       provinceSelect.value = project.province || "";
       if (provinceSelect.value) {
@@ -296,6 +298,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       smeName: smeNameInput.value.trim(),
       businessID: businessIDInput.value.trim(),
       projectName: projectNameInput.value.trim(),
+      description: descriptionInput.value.trim(),
       projectCost,
       province: provinceSelect.value,
       municipality: municipalitySelect.value,

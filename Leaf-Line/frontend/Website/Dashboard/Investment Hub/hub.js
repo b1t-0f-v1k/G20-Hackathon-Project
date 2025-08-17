@@ -292,7 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             const project = await projectRes.json();
             
-            // 2. Create investment
+            // 2. Create investment in MongoDB
             const investmentRes = await fetch('http://localhost:5000/api/investments', {
                 method: 'POST',
                 headers: {
@@ -305,26 +305,31 @@ document.addEventListener("DOMContentLoaded", () => {
                     businessID: project.businessID,
                     province: project.province,
                     municipality: project.municipality,
-                    sources: project.sources,
-                    totalEmissions: project.totalEmissions,
+                    sources: project.sources || [], // Ensure sources is an array
+                    totalEmissions: project.totalEmissions || 0, // Default to 0 if undefined
                     flag: project.flag ? project.flag.toLowerCase() : "no-data",
-                    benchmarkUsed: project.benchmarkUsed,
-                    projectCost: project.projectCost,
-                    investmentAmount: amount
+                    benchmarkUsed: project.benchmarkUsed || null,
+                    projectCost: project.projectCost || 0, // Default to 0 if undefined
+                    investmentAmount: amount,
+                    status: "active" // Set default status
                 })
             });
             
+            const responseData = await investmentRes.json();
+            
             if (!investmentRes.ok) {
-                const errorData = await investmentRes.json().catch(() => ({}));
-                throw new Error(errorData.message || 'Failed to create investment');
+                throw new Error(responseData.message || 'Failed to create investment');
             }
             
             alert('Investment successful!');
             closeModal();
             
-            // Optional: Refresh project list to reflect changes
-            loadAllProjects();
-            window.location.href = `./myInvestments.html?investorID=${investorId}`;
+            // Refresh projects list to reflect changes
+            await loadAllProjects();
+            
+            // Store investorID for future reference
+            localStorage.setItem('investorID', investorId);
+            
         } catch (error) {
             console.error('Investment error:', error);
             alert(`Investment failed: ${error.message}`);

@@ -95,6 +95,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       smeName: document.getElementById("smeName").value,
       businessID: document.getElementById("businessID").value,
       projectName: document.getElementById("projectName").value,
+      projectDescription: document.getElementById("projectDescription").value,
       projectCost: parseFloat(document.getElementById("projectCost").value),
       province: document.getElementById("province").value,
       municipality: document.getElementById("municipality").value,

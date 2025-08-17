@@ -67,7 +67,7 @@ export const getProjectsByProjectName = async (req, res) => {
 // Create a new project
 export const createProject = async (req, res) => {
   try {
-    const { province, municipality, activityData, emissionFactor, projectCost } = req.body;
+    const { province, municipality, activityData, emissionFactor, projectCost, description } = req.body;
 
     // Calculate total emissions
     const totalEmissions = activityData * emissionFactor;
@@ -100,6 +100,7 @@ export const createProject = async (req, res) => {
 
     const newProject = new SMEProjectEmission({
       ...req.body,
+      description,
       totalEmissions,
       projectCost,
       benchmarkUsed,
@@ -118,7 +119,7 @@ export const createProject = async (req, res) => {
 export const updateProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const { province, municipality, sources, projectCost } = req.body;
+    const { province, municipality, sources, projectCost, description } = req.body;
 
     if (!Array.isArray(sources)) {
       return res.status(400).json({ error: "Sources must be an array" });
@@ -156,6 +157,7 @@ export const updateProject = async (req, res) => {
 
     const updateData = {
       ...req.body,
+      description,
       totalEmissions,
       projectCost,
       benchmarkUsed,

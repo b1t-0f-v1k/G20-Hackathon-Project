@@ -50,7 +50,7 @@ export const registerInvestor = async (req, res) => {
     }
 };
 
-export const getInvestorID = async (req, res) => {
+/*export const getInvestorID = async (req, res) => {
   console.log('\n=== GET INVESTOR ID ===');
   console.log('Authenticated User:', req.user);
   
@@ -103,6 +103,72 @@ export const getInvestorID = async (req, res) => {
     return res.status(500).json({ 
       error: "Internal Server Error",
       message: "Could not retrieve investor ID"
+    });
+  }
+};*/
+
+export const getInvestorID = async (req, res) => {
+  try {
+    const { investorID } = req.body;
+    
+    if (!investorID) {
+      return res.status(400).json({
+        success: false,
+        message: "Investor ID is required"
+      });
+    }
+    
+    const investor = await Investor.findOne({ investorID });
+    if (!investor) {
+      return res.status(404).json({
+        success: false,
+        message: "Investor not found"
+      });
+    }
+    
+    res.status(200).json({
+      success: true,
+      data: {
+        _id: investor._id,
+        name: investor.name || 'Carbon Investor', // Provide default name
+        email: investor.email,
+        investorID: investor.investorID
+      }
+    });
+  } catch (error) {
+    console.error('Error in getInvestorID:', error);
+    res.status(500).json({
+      success: false,
+      message: "Server error while fetching investor"
+    });
+  }
+};
+
+// Add this new function to your investorControllers.js
+export const getInvestorByID = async (req, res) => {
+  try {
+    const investor = await Investor.findById(req.params.id);
+    if (!investor) {
+      return res.status(404).json({
+        success: false,
+        message: "Investor not found"
+      });
+    }
+    
+    res.status(200).json({
+      success: true,
+      data: {
+        _id: investor._id,
+        name: investor.name,
+        email: investor.email,
+        investorID: investor.investorID
+        // Add other fields you want to expose
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
     });
   }
 };
