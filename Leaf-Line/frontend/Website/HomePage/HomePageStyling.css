@@ -132,8 +132,8 @@ nav {
     width: 100%;
     padding: 30px;
     background-image: linear-gradient(to bottom right, rgb(75, 104, 72), rgb(59, 97, 71));
-    height: 600px;
-  
+    min-height: 1.5rem;
+    margin-bottom: 5%;
 }
 
 
@@ -146,12 +146,40 @@ nav {
     margin-left: 12%;
     transition: opacity 2s ;
     background: white;
-    border-radius: 20px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), 0 12px 40px rgba(0, 0, 0, 0.19);
     margin-right: 12%;
     padding: 30px;
 
 }
+
+
+.InfoDiv h1{
+    color: #0F3924;
+}
+
+.InfoDiv h2{
+    color:#13482e
+}
+
+.InfoDiv p {
+    padding: 10px;
+}
+
+
+footer{
+    color: white;
+    font-size: 1rem;
+    background: #092316;
+    text-align: center;
+    width: 100%;
+    min-height: 4rem;
+
+}
+
+.FootText{
+    margin-top: 2%;
+}
+
 /* 
 .InfoDiv.visible{
     opacity: 1;
