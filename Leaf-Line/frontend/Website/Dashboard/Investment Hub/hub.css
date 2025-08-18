@@ -436,3 +436,26 @@ body {
     margin: 20% auto;
   }
 }
+
+/* Back Button Styles */
+.back-button-container {
+  padding: 15px 30px;
+  background-color: #f5f9f7;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #2e8b57;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #3aaf76;
+}

@@ -41,8 +41,48 @@
         <div class="head">
             <h1>Welcome to the Members Dashboard</h1>
         </div>
+
+        <div class="dashboard-section">
+            <h2><i class="fas fa-newspaper"></i> Sustainability News</h2>
+            <div class="articles-container">
+                <!-- Articles will be loaded here by JavaScript -->
+            </div>
+        </div>
     </div>
 
+    <!-- Floating Chatbot Button -->
+    <div class="chatbot-toggle" id="chatbotToggle">
+    <i class="fas fa-leaf"></i>
+    </div>
+
+    <!-- Chatbot Container (initially hidden) -->
+    <div class="chatbot-container" id="chatbotContainer">
+    <div class="chat-header">
+        <img src="../../../../assets/App banners/Leaf-Line banner white.png" alt="User Icon" style="height: 60px; width: 120px;">
+        <span class="LogoHeader">AI Assistant</span><br>
+    </div>
+    
+    <div class="knowledge-indicator">
+        🧠 Trained on 50,000+ green energy data points | Real-time renewable insights
+    </div>
+    <div class="quick-buttons">
+        <button onclick="quickAsk('Compare solar vs wind energy for my business')">☀️ Solar vs Wind</button>
+        <button onclick="quickAsk('How to get grants and incentives for going green')">💰 Grants & Incentives</button>
+        <button onclick="quickAsk('Best battery storage solutions for renewable energy')">🔋 Energy Storage</button>
+    </div>
+    <div class="chat-body" id="chat-body">
+        <div class="bot-message">
+        <span>🌍 Welcome! I'm your advanced Green Energy AI assistant. How can I help with your sustainability questions today?</span>
+        </div>
+    </div>
+    <div class="chat-input">
+        <input type="text" id="user-input" placeholder="Ask about solar panels, wind turbines, battery storage..." />
+        <button id="send-btn">🚀</button>
+    </div>
+    </div>
+
+    <script src="carbon_chatbot.js"></script>
     <script src="EmployeeDashboard.js"></script>
+    <script type="module" src="../articles/articles.js"></script>
 </body>
 </html>

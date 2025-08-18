@@ -1,54 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Update Project</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../Projects/updateProject.css" />
 </head>
 <body>
   <div class="container">
-    <form id="update-form">
-      <div class="header-container">
-        <h2>Update Project</h2>
-        <div class="flag-key">
-          <h4>Status Key:</h4>
-          <div class="key-item"><span class="key-color green"></span>Green: Below target</div>
-          <div class="key-item"><span class="key-color yellow"></span>Yellow: Near target</div>
-          <div class="key-item"><span class="key-color orange"></span>Orange: Warning</div>
-          <div class="key-item"><span class="key-color red"></span>Red: Above limit</div>
-        </div>
+    <div class="header-container">
+      <h1><i class="fas fa-edit"></i> Update Project</h1>
+      <div class="flag-key">
+        <h4><i class="fas fa-key"></i> Status Key</h4>
+        <div class="key-item"><span class="key-color green"></span>Green: Below target</div>
+        <div class="key-item"><span class="key-color yellow"></span>Yellow: Near target</div>
+        <div class="key-item"><span class="key-color orange"></span>Orange: Warning level</div>
+        <div class="key-item"><span class="key-color red"></span>Red: Above limit</div>
+      </div>
+    </div>
+
+    <form id="update-form" class="calculator-form">
+      <div class="form-group">
+        <label for="smeName"><i class="fas fa-building"></i> SME Name</label>
+        <input type="text" id="smeName" placeholder="SME Name" required />
       </div>
 
-      <input type="text" id="smeName" placeholder="SME Name" required />
-      <input type="text" id="businessID" placeholder="Business ID" required />
-      <input type="text" id="projectName" placeholder="Project Name" required />
-      <input type="number" id="projectCost" placeholder="Project Cost (ZA)" required min="0" step="0.01" />
-
-      <label for="province">Province:</label>
-      <select id="province" required>
-        <option value="">Select Province</option>
-      </select>
-
-      <label for="municipality">Municipality:</label>
-      <select id="municipality" required>
-        <option value="">Select Municipality</option>
-      </select>
+      <div class="form-group">
+        <label for="businessID"><i class="fas fa-id-card"></i> Business ID</label>
+        <input type="text" id="businessID" placeholder="Business ID" required />
+      </div>
 
       <div class="form-group">
-        <label>Current Emissions Status:</label>
+        <label for="projectName"><i class="fas fa-project-diagram"></i> Project Name</label>
+        <input type="text" id="projectName" placeholder="Project Name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="projectDescription"><i class="fas fa-align-left"></i> Project Description</label>
+        <textarea id="projectDescription" placeholder="Project Description"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="projectCost"><i class="fas fa-money-bill-wave"></i> Project Cost (ZAR)</label>
+        <input type="number" id="projectCost" placeholder="0.00" required min="0" step="0.01" />
+      </div>
+
+      <div class="form-group">
+        <label for="province"><i class="fas fa-map-marker-alt"></i> Province</label>
+        <select id="province" required>
+          <option value="">-- Select Province --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="municipality"><i class="fas fa-city"></i> Municipality</label>
+        <select id="municipality" required>
+          <option value="">-- Select Municipality --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-flag"></i> Current Emissions Status</label>
         <div id="flag-display" class="flag-display">
           <span style="color:#6c757d">Enter data to calculate</span>
         </div>
         <div id="emissions-total" class="emissions-total"></div>
       </div>
 
-      <h3>Sources</h3>
-      <div id="sources-list"></div>
+      <h3 class="section-title"><i class="fas fa-factory"></i> Emission Sources</h3>
+      <div id="sources-list" class="sources-container"></div>
 
       <div id="add-source-form"></div>
-      <button type="button" id="add-source-btn">Add Source</button>
+      
+      <button type="button" id="add-source-btn" class="btn-add-source">
+        <i class="fas fa-plus-circle"></i> Add Source
+      </button>
 
-      <button type="submit">Update Project</button>
+      <button type="submit" class="btn-update">
+        <i class="fas fa-save"></i> Update Project
+      </button>
     </form>
   </div>
 

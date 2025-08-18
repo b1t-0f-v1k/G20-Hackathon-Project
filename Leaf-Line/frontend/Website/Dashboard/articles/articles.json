@@ -1,0 +1,32 @@
+{
+  "articles": [
+    {
+      "title": "Renewable Energy Hits Record High in 2024",
+      "image": "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=80",
+      "content": [
+        "Global renewable energy capacity grew by an unprecedented 12% in the first half of 2024, marking the largest six-month increase on record. Solar and wind power led the expansion, accounting for over 80% of new capacity.",
+        "Experts attribute this growth to falling technology costs, improved energy storage solutions, and stronger government policies worldwide. The International Energy Agency now predicts renewables will surpass coal as the world's largest electricity source by 2026."
+      ],
+      "date": "June 15, 2024",
+      "author": "By Sarah Johnson, Energy Correspondent"
+    },
+    {
+      "title": "Electric Vehicle Sales Surge as Prices Drop",
+      "image": "https://images.unsplash.com/photo-1551751299-1b51cab2694c?ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=80",
+      "content": [
+        "Global electric vehicle sales reached 15 million in the first quarter of 2024, a 65% increase from the same period last year. This surge comes as battery prices have fallen to record lows, making EVs cost-competitive with traditional vehicles without subsidies."
+      ],
+      "date": "April 10, 2024",
+      "author": "By Emily Wong, Transportation Analyst"
+    },
+    {
+      "title": "Green Hydrogen Breakthrough Could Revolutionize Heavy Industry",
+      "image": "https://www.azocleantech.com/images/Article_Images/ImageForArticle_29_17358319033879695.jpg",
+      "content": [
+        "Scientists at MIT have developed a new electrolyzer that produces green hydrogen at 95% efficiency, a significant leap from the current 70-80% standard. The technology uses a novel catalyst that reduces energy requirements while doubling production capacity."
+      ],
+      "date": "January 30, 2024",
+      "author": "By James Wilson, Technology Editor"
+    }
+  ]
+}

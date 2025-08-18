@@ -2,35 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SME Projects</title>
-  <link rel="stylesheet" href="smeProjects.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="smeProjects.css" />
 </head>
 <body>
-  <div class="header-container">
-    <h1>SME Projects</h1>
-    <div class="flag-key">
-      <h3>Status Key:</h3>
-      <div class="key-item"><span class="key-color green"></span>Green: Below target</div>
-      <div class="key-item"><span class="key-color yellow"></span>Yellow: Near target</div>
-      <div class="key-item"><span class="key-color orange"></span>Orange: Approaching limit</div>
-      <div class="key-item"><span class="key-color red"></span>Red: Above limit</div>
-      <div class="key-item"><span class="key-color no-data"></span>No data</div>
+  <div class="container">
+    <div class="header-container">
+      <h1><i class="fas fa-project-diagram"></i> SME Projects</h1>
+      <div class="flag-key">
+        <h4><i class="fas fa-key"></i> Status Key</h4>
+        <div class="key-item"><span class="key-color green"></span>Green: Below target</div>
+        <div class="key-item"><span class="key-color yellow"></span>Yellow: Near target</div>
+        <div class="key-item"><span class="key-color orange"></span>Orange: Warning level</div>
+        <div class="key-item"><span class="key-color red"></span>Red: Above limit</div>
+        <div class="key-item"><span class="key-color no-data"></span>No data available</div>
+      </div>
     </div>
+    
+    <div class="search-container">
+      <div class="search-group">
+        <label for="businessID"><i class="fas fa-id-card"></i> Business ID</label>
+        <input type="text" id="businessID" placeholder="Enter Business ID" />
+      </div>
+      
+      <div class="search-group">
+        <label for="statusFilter"><i class="fas fa-filter"></i> Status Filter</label>
+        <select id="statusFilter">
+          <option value="">All Statuses</option>
+          <option value="active">Active</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      
+      <button id="loadProjects" class="btn-search">
+        <i class="fas fa-search"></i> Load Projects
+      </button>
+    </div>
+    
+    <div id="projectsList" class="projects-grid"></div>
   </div>
-  
-  <div class="search-container">
-    <input type="text" id="businessID" placeholder="Enter Business ID" />
-    <select id="statusFilter">
-      <option value="">All Statuses</option>
-      <option value="active">Active</option>
-      <option value="completed">Completed</option>
-      <option value="cancelled">Cancelled</option>
-    </select>
-    <button id="loadProjects">Load Projects</button>
-  </div>
-  <div id="projectsList"></div>
 
-  <script src="smeProjects.js"></script>
+  <script type="module" src="smeProjects.js"></script>
 </body>
 </html>
