@@ -1,162 +1,737 @@
-body {
+/* Base Styles */
+* {
     margin: 0;
-    font-family: Arial, sans-serif;
-    display: flex;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+body {
+    background-color: #f5f9f7;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Enhanced Sidebar - Green Theme */
 .sidebar {
-    width: 250px;
-    background-color: #2c3e50;
+    width: 280px;
+    background: linear-gradient(135deg, #1e6f4a 0%, #2e8b57 100%);
     color: white;
     height: 100vh;
     position: fixed;
     padding-top: 20px;
-    transition: width 0.3s;
+    transition: width 0.3s ease;
     overflow-x: hidden;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+    z-index: 100;
 }
 
 .sidebar h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin: 20px 0 30px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 .menu-toggle {
-    background: #2c3e50;
+    background: transparent;
     border: none;
     color: white;
-    font-size: 40px;
-    margin-left: 8px;
+    font-size: 24px;
+    position: absolute;
+    left: 20px;
+    top: 20px;
     cursor: pointer;
+    transition: transform 0.3s;
+    z-index: 101;
+}
 
+.menu-toggle:hover {
+    transform: scale(1.1);
 }
 
 .menu {
     list-style: none;
-    padding: 0;
+    padding: 0 20px;
 }
 
 .menu li {
-    padding: 5px 0;
+    margin-bottom: 5px;
 }
 
 .collapsible {
-    background: none;
+    background: rgba(255,255,255,0.1);
     border: none;
     color: white;
-    font-size: 16px;
-    padding: 10px 20px;
+    font-size: 1rem;
+    padding: 12px 20px;
     width: 100%;
     text-align: left;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 .collapsible:hover {
-    background-color: #34495e;
+    background: rgba(255,255,255,0.2);
+    transform: translateX(5px);
+}
+
+.collapsible i {
+    font-size: 1.1rem;
+    width: 24px;
+    text-align: center;
 }
 
 .content {
     display: none;
-    background-color: #34495e;
-    padding-left: 40px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 0 0 6px 6px;
+    padding: 10px 0 10px 40px;
+    margin-top: -5px;
+    animation: fadeIn 0.3s ease-out;
 }
 
-a {
-    color: #bdc3c7;
+.content a {
+    color: rgba(255,255,255,0.9);
     display: block;
-    padding: 5px 0;
+    padding: 8px 0;
     text-decoration: none;
-    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
 }
 
 .content a:hover {
     color: white;
+    transform: translateX(3px);
 }
 
+/* Main Content Area */
 .main {
     display: flex;
-    margin-left: 250px;
-    padding: 20px;
-    flex: 1;
+    flex-direction: column;
+    margin-left: 280px;
+    padding: 30px;
+    width: calc(100% - 280px);
+    max-width: 1200px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
-.sidebar.collapsed {
-    width: 70px;
-    /* height: 70px; */
-    background: none;
+.head {
+    background: linear-gradient(135deg, #2e8b57 0%, #3aaf76 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.sidebar.collapsed h2, 
-.sidebar.collapsed .content {
-    visibility: hidden;
-
+.head h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
-.sidebar.collapsed li{
-    visibility: hidden;
+/* Dashboard Section */
+.dashboard-section {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 40px;
+    margin: 0 auto 40px;
+    width: 100%;
+    max-width: 1000px;
 }
 
-/* Add to InvestorDashboard.css or create a new CSS file */
+.dashboard-section h2 {
+    text-align: center;
+    color: #1e6f4a;
+    margin: 0 0 40px;
+    font-size: 2.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.dashboard-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 3px;
+    background: linear-gradient(90deg, #2e8b57, #3aaf76);
+}
+
+/* Articles Container */
+.articles-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 600px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Article Card */
+.news-card {
+    width: 100%;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    padding: 40px;
+    margin: 0 auto;
+    position: relative;
+    min-height: 550px;
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+    text-align: center;
+}
+
+.news-card.active {
+    display: block;
+}
+
+.news-title {
+    font-size: 2rem;
+    color: #1e6f4a;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.news-image {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 0 auto 30px;
+    display: block;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.news-image:hover {
+    transform: scale(1.02);
+}
+
+.news-content {
+    margin: 0 auto 30px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    text-align: center;
+    max-width: 700px;
+    color: #444;
+}
+
+.news-content p {
+    margin-bottom: 25px;
+}
+
+.news-date, .news-author {
+    position: absolute;
+    bottom: 40px;
+    font-size: 1rem;
+    color: #666;
+    font-style: italic;
+}
+
+.news-date {
+    left: 40px;
+}
+
+.news-author {
+    right: 40px;
+}
+
+/* Navigation */
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px auto 0;
+    width: 100%;
+}
+
+.nav-btn {
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #2e8b57 0%, #3aaf76 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    min-width: 140px;
+    text-align: center;
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.nav-btn:disabled {
+    background: #cccccc;
+    transform: none;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* Investor ID Popup Styles */
 .investor-id-popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .popup-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  text-align: center;
-  max-width: 400px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.popup-content h3 {
+    color: #1e6f4a;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
 }
 
 .investor-id {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 1rem 0;
-  color: #2c3e50;
-  background: #f5f5f5;
-  padding: 0.5rem;
-  border-radius: 4px;
-  word-break: break-all;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 1.5rem 0;
+    color: #2e8b57;
+    background: #f5f9f7;
+    padding: 1rem;
+    border-radius: 8px;
+    word-break: break-all;
+    border: 2px dashed #2e8b57;
 }
 
 .close-popup {
-  background: #2c3e50;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 1rem;
-}
-
-.investor-id-section {
-  background: #f5f5f5;
-  padding: 1rem;
-  margin-bottom: 2rem;
-  border-radius: 8px;
+    background: linear-gradient(135deg, #2e8b57 0%, #3aaf76 100%);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 .close-popup:hover {
-  background: #34495e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-#investor-id-result {
-  margin-top: 1rem;
+/* Collapsed Sidebar State */
+.sidebar.collapsed {
+    width: 80px;
 }
 
-.error {
-  color: #e74c3c;
+.sidebar.collapsed h2,
+.sidebar.collapsed .collapsible span,
+.sidebar.collapsed .content {
+    display: none;
+}
+
+.sidebar.collapsed .menu {
+    padding: 0 10px;
+}
+
+.sidebar.collapsed .collapsible {
+    justify-content: center;
+    padding: 12px 0;
+}
+
+.sidebar.collapsed .menu-toggle {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 80px;
+    }
+    .sidebar h2,
+    .sidebar .collapsible span,
+    .sidebar .content {
+        display: none;
+    }
+    .sidebar .menu {
+        padding: 0 10px;
+    }
+    .sidebar .collapsible {
+        justify-content: center;
+        padding: 12px 0;
+    }
+    .main {
+        margin-left: 80px;
+        width: calc(100% - 80px);
+    }
+}
+
+@media (max-width: 768px) {
+    .head h1 {
+        font-size: 2rem;
+    }
+    
+    .dashboard-section {
+        padding: 30px 20px;
+    }
+    
+    .dashboard-section h2 {
+        font-size: 1.8rem;
+    }
+    
+    .news-card {
+        padding: 30px 20px;
+        min-height: 500px;
+    }
+    
+    .news-title {
+        font-size: 1.6rem;
+    }
+    
+    .news-image {
+        height: 250px;
+    }
+    
+    .news-content {
+        font-size: 1rem;
+    }
+    
+    .news-date, .news-author {
+        position: static;
+        display: block;
+        margin-top: 20px;
+        text-align: center;
+    }
+    
+    .nav-btn {
+        padding: 10px 20px;
+        min-width: 120px;
+    }
+    
+    .popup-content {
+        padding: 1.5rem;
+    }
+    
+    .investor-id {
+        font-size: 1.4rem;
+        padding: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .main {
+        padding: 20px 15px;
+    }
+    
+    .head {
+        padding: 20px 15px;
+    }
+    
+    .dashboard-section h2 {
+        font-size: 1.5rem;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .news-card {
+        min-height: 450px;
+    }
+    
+    .news-image {
+        height: 200px;
+    }
+    
+    .navigation {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .nav-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .popup-content h3 {
+        font-size: 1.5rem;
+    }
+    
+    .investor-id {
+        font-size: 1.2rem;
+    }
+}
+
+/* Chatbot Styles - Larger Version */
+.chatbot-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #2e8b57 0%, #3aaf76 100%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+.chatbot-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.chatbot-container {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 450px; /* Increased from 350px */
+  height: 70vh; /* Changed from max-height to fixed height */
+  max-height: 700px; /* Added maximum height */
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+  transform: scale(0);
+  transform-origin: bottom right;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.chatbot-container.active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.chat-header {
+  background: linear-gradient(135deg, #2e8b57 0%, #3aaf76 100%);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 20px; /* Increased from 18px */
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* Increased from 10px */
+}
+
+.knowledge-indicator {
+  background: #f0fdf4;
+  padding: 10px; /* Increased from 8px */
+  text-align: center;
+  font-size: 13px; /* Increased from 11px */
+  color: #166534;
+  border-bottom: 1px solid #dcfce7;
+}
+
+.quick-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Increased from 6px */
+  padding: 15px; /* Increased from 10px */
+  background: #f8fafc;
+}
+
+.quick-buttons button {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  padding: 8px 12px; /* Increased from 6px 10px */
+  border-radius: 15px;
+  font-size: 12px; /* Increased from 10px */
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quick-buttons button:hover {
+  transform: translateY(-1px);
+}
+
+.chat-body {
+  padding: 15px; /* Increased from 10px */
+  background: #fefefe;
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Increased from 8px */
+  height: calc(100% - 200px); /* Adjusted for larger container */
+}
+
+.bot-message, .user-message {
+  max-width: 85%;
+  padding: 12px 16px; /* Increased from 10px 14px */
+  border-radius: 15px;
+  font-size: 15px; /* Increased from 13px */
+  line-height: 1.5; /* Increased from 1.4 */
+  animation: messageSlide 0.3s ease;
+}
+
+.bot-message {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  align-self: flex-start;
+  border: 1px solid #a7f3d0;
+}
+
+.user-message {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  align-self: flex-end;
+}
+
+.chat-input {
+  display: flex;
+  padding: 15px; /* Increased from 10px */
+  border-top: 1px solid #e5e7eb;
+  background: white;
+}
+
+.chat-input input {
+  flex: 1;
+  border: 1px solid #e5e7eb;
+  outline: none;
+  padding: 12px 16px; /* Increased from 10px 14px */
+  font-size: 15px; /* Increased from 13px */
+  border-radius: 20px;
+  transition: border-color 0.3s;
+}
+
+.chat-input input:focus {
+  border-color: #10b981;
+}
+
+.chat-input button {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  padding: 12px 20px; /* Increased from 10px 16px */
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 10px; /* Increased from 8px */
+  transition: all 0.2s ease;
+}
+
+.chat-input button:hover {
+  transform: scale(1.05);
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Increased from 5px */
+  padding: 12px 16px; /* Increased from 10px 14px */
+  background: #f3f4f6;
+  border-radius: 15px;
+  align-self: flex-start;
+  max-width: 85%;
+  font-size: 14px; /* Increased from 12px */
+}
+
+.typing-dots {
+  display: flex;
+  gap: 4px; /* Increased from 3px */
+}
+
+.typing-dots span {
+  width: 6px; /* Increased from 5px */
+  height: 6px; /* Increased from 5px */
+  border-radius: 50%;
+  background: #10b981;
+  animation: typingPulse 1.4s infinite ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chatbot-container {
+    width: 90vw;
+    right: 5vw;
+    height: 60vh;
+  }
+  
+  .chat-header {
+    font-size: 18px;
+    padding: 15px;
+  }
+  
+  .quick-buttons button {
+    font-size: 11px;
+    padding: 7px 10px;
+  }
+  
+  .chat-body {
+    padding: 10px;
+  }
+  
+  .bot-message, .user-message {
+    font-size: 14px;
+  }
 }
