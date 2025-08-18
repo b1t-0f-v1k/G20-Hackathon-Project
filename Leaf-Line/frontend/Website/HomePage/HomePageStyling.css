@@ -92,7 +92,7 @@ nav {
 .HomePageHeading {
     font-size: 2rem;
     font-weight: 900;
-    color: #0F3924;;
+    color: white;
 
     margin-left: 25%;
     width: 90%;
@@ -131,7 +131,7 @@ nav {
     text-align: center;
     width: 100%;
     padding: 30px;
-    background-image: linear-gradient(to bottom right, rgb(75, 104, 72), rgb(59, 97, 71));
+    background: #0D3822;
     min-height: 1.5rem;
     margin-bottom: 5%;
 }
