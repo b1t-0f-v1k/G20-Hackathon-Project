@@ -10,6 +10,7 @@
       "date": "June 15, 2024",
       "author": "By Sarah Johnson, Energy Correspondent"
     },
+
     {
       "title": "Electric Vehicle Sales Surge as Prices Drop",
       "image": "https://images.unsplash.com/photo-1551751299-1b51cab2694c?ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=80",
@@ -19,6 +20,7 @@
       "date": "April 10, 2024",
       "author": "By Emily Wong, Transportation Analyst"
     },
+    
     {
       "title": "Green Hydrogen Breakthrough Could Revolutionize Heavy Industry",
       "image": "https://www.azocleantech.com/images/Article_Images/ImageForArticle_29_17358319033879695.jpg",
@@ -27,6 +29,86 @@
       ],
       "date": "January 30, 2024",
       "author": "By James Wilson, Technology Editor"
+    },
+
+    {
+      "title": "Insect Collapse Threatens Global Food Systems",
+      "image": "https://media.istockphoto.com/id/491230304/photo/bee-on-the-flower.jpg?s=612x612&w=0&k=20&c=G6WVJnSD2au7BoN8UowSjoa9leSR5OoAihDH5em-U_w=",
+      "content": [
+        "A meta-analysis of 73 long-term studies shows global insect populations have declined 45% since 1970, with climate change now the primary driver in tropical regions. The losses are most severe among pollinators like bees and butterflies that support 75% of food crops."
+      ],
+      "date": "October 22, 2023",
+      "author": "By Kevin O'Brien, Agricultural Scientist"
+    },
+
+    {
+      "title": "Wave and Tidal Energy Projects Gain Momentum",
+      "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=80",
+      "content": [
+        "Several large-scale wave and tidal energy plants went online in 2024, with projects in Scotland, Canada, and South Korea leading the way. These ocean-based power sources are proving to be reliable, predictable, and capable of powering thousands of homes year-round."
+      ],
+      "date": "August 5, 2024",
+      "author": "By Laura Stevens, Marine Energy Reporter"
+    },
+
+    {
+      "title": "New Battery Technology Doubles Storage Capacity",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuUaXABEs8rtOWqmtLZFmrAsylE1RsxW_I2A&s",
+      "content": [
+        "Researchers have unveiled a solid-state battery that can store twice as much energy as current lithium-ion cells while reducing charging time to under 15 minutes. Industry experts say this could be a game-changer for renewable integration and electric vehicles."
+      ],
+      "date": "July 18, 2024",
+      "author": "By Daniel Carter, Technology Correspondent"
+    },
+
+    {
+      "title": "Africa’s Largest Solar Farm Comes Online in Namibia",
+      "image": "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=80",
+      "content": [
+        "Namibia has launched a 500 MW solar project, now the largest in Africa, capable of supplying clean power to over 1 million households. The project is expected to reduce carbon emissions by 1.2 million tons annually and strengthen regional energy security."
+      ],
+      "date": "May 3, 2024",
+      "author": "By Anita Mensah, Renewable Energy Correspondent"
+    },
+
+    {
+      "title": "AI Optimizes Renewable Energy Grids",
+      "image": "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=80",
+      "content": [
+        "Artificial intelligence is being used to predict energy demand and optimize the flow of renewable power across national grids, reducing waste and cutting costs. Trials in Germany have already saved millions in operational expenses."
+      ],
+      "date": "February 12, 2024",
+      "author": "By Martin Grey, Energy Systems Analyst"
+    },
+
+    {
+      "title": "Vertical Farming Reduces Urban Carbon Footprints",
+      "image": "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=80",
+      "content": [
+        "Major cities are adopting vertical farming to grow food locally, reducing transport emissions and water usage. Singapore’s largest vertical farm now produces enough vegetables to feed 200,000 people annually."
+      ],
+      "date": "March 25, 2024",
+      "author": "By Olivia Chen, Sustainability Writer"
+    },
+
+    {
+      "title": "Recycling Wind Turbine Blades Becomes Viable",
+      "image": "https://sapt.co.za/wp-content/uploads/2019/10/compo-n-Recycling-of-Wind-turbine-blades-e1750324705225.jpg",
+      "content": [
+        "New chemical recycling methods are allowing old wind turbine blades to be turned into materials for bridges, playgrounds, and even new turbines, solving a long-standing waste problem in the wind industry."
+      ],
+      "date": "September 14, 2024",
+      "author": "By Laura Bennett, Environmental Technology Journalist"
+    },
+
+    {
+      "title": "Solar Desalination Plants Transform Water Access",
+      "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=80",
+      "content": [
+        "Coastal communities in drought-prone areas are adopting solar-powered desalination plants to provide fresh water sustainably, with projects in Morocco and Australia showing great promise."
+      ],
+      "date": "December 2, 2024",
+      "author": "By Ahmed Karim, Climate Solutions Reporter"
     }
   ]
 }

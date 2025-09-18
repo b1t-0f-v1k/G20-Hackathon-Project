@@ -5,6 +5,7 @@ body {
   padding: 0;
   background-color: #f5f7fa;
   color: #333;
+  background: linear-gradient(90deg, rgb(131, 244, 125), rgb(95, 138, 248));
 }
 
 .investments-container {

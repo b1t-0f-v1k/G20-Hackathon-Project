@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
+    background: linear-gradient(90deg, rgb(131, 244, 125), rgb(95, 138, 248));
 }
 
 table {

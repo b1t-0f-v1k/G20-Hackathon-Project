@@ -12,6 +12,7 @@ body {
     line-height: 1.6;
     display: flex;
     min-height: 100vh;
+    background: linear-gradient(90deg, rgb(131, 244, 125), rgb(95, 138, 248));
 }
 
 /* Enhanced Sidebar - Green Theme */
@@ -598,7 +599,7 @@ body {
   flex-wrap: wrap;
   gap: 8px; /* Increased from 6px */
   padding: 15px; /* Increased from 10px */
-  background: #f8fafc;
+  background: linear-gradient(90deg, rgb(131, 244, 125), rgb(95, 138, 248));
 }
 
 .quick-buttons button {
@@ -618,7 +619,7 @@ body {
 
 .chat-body {
   padding: 15px; /* Increased from 10px */
-  background: #fefefe;
+  background: linear-gradient(90deg, rgb(131, 244, 125), rgb(95, 138, 248));
   flex-grow: 1;
   overflow-y: auto;
   display: flex;

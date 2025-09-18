@@ -21,6 +21,7 @@ body {
   padding: 20px;
   color: var(--text-color);
   line-height: 1.6;
+  background: linear-gradient(90deg, rgb(131, 244, 125), rgb(95, 138, 248));
 }
 
 .container {

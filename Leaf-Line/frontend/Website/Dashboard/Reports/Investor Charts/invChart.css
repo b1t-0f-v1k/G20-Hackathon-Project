@@ -10,6 +10,7 @@ body {
     background-color: #f4f6f8;
     color: #333;
     min-height: 100vh;
+    background: linear-gradient(90deg, rgb(131, 244, 125), rgb(95, 138, 248));
 }
 
 /* Top Heading Bar */
